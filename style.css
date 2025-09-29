@@ -3,23 +3,26 @@ body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
   color: #1a1a1a;
-  background: linear-gradient(135deg, #f5f9ff 0%, #ffffff 60%, #fdfcfb 100%);
+  background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 70%, #fdfcfb 100%);
   text-align: center;
   scroll-behavior: smooth;
+  min-height: 100vh;
 }
 
 /* Hero */
 .hero {
   padding: 120px 20px 100px;
-  background: linear-gradient(180deg, #eef3ff 0%, #ffffff 100%);
+  background: linear-gradient(180deg, #eaf0ff 0%, #ffffff 100%);
   animation: fadeIn 1.5s ease-in;
   border-bottom: 1px solid #eaeaea;
 }
+
 .logo {
   width: 120px;
   margin-bottom: 25px;
   animation: float 4s infinite ease-in-out;
 }
+
 .hero h1 {
   font-family: 'Inter', sans-serif;
   font-size: 3.2rem;
@@ -29,21 +32,52 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .hero p {
   font-size: 1.25rem;
   margin-bottom: 35px;
-  color: #333;
+  color: #444;
 }
+
 .hero-buttons {
   display: flex;
   justify-content: center;
   gap: 20px;
 }
 
+.btn {
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn.primary {
+  background: #2A4D9B;
+  color: #fff;
+}
+
+.btn.primary:hover {
+  background: #1e3670;
+}
+
+.btn.secondary {
+  border: 2px solid #2A4D9B;
+  color: #2A4D9B;
+}
+
+.btn.secondary:hover {
+  background: #2A4D9B;
+  color: #fff;
+}
+
 /* About */
 .about {
   padding: 80px 20px;
 }
+
 .about h2 {
   font-family: 'Inter', sans-serif;
   font-size: 2rem;
@@ -53,8 +87,9 @@ body {
 /* Join Us */
 .join {
   padding: 80px 20px;
-  background: #f9fafc;
+  background: #f7f9fc;
 }
+
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -62,21 +97,25 @@ body {
   max-width: 900px;
   margin: 0 auto;
 }
+
 .card {
   background: #fff;
   border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
 }
+
 .card h3 {
   font-family: 'Inter', sans-serif;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
+
 .btn.small {
   padding: 8px 18px;
   font-size: 0.9rem;
@@ -84,14 +123,21 @@ body {
 
 /* Footer */
 footer {
-  background: #fff;
+  background: linear-gradient(180deg, #ffffff 0%, #f0f2f8 100%);
   padding: 40px 20px;
   border-top: 1px solid #eaeaea;
 }
+
 .footer-logo {
   width: 60px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
+
+footer p {
+  color: #555;
+  margin: 5px 0;
+}
+
 .linkedin {
   display: inline-block;
   margin-top: 10px;
@@ -99,6 +145,7 @@ footer {
   font-weight: 600;
   text-decoration: none;
 }
+
 .linkedin:hover {
   text-decoration: underline;
 }
@@ -108,6 +155,7 @@ footer {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
