@@ -1,44 +1,60 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kalmus Labs</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
   <!-- Hero -->
   <section class="hero">
+    <img src="logo.png" alt="Kalmus Labs Logo" class="logo">
     <h1>Kalmus Labs</h1>
     <p>Building the future of learning with AI</p>
-    <a href="mailto:founder@kalmuslabs.com" class="button">Contact us</a>
+    <div class="hero-buttons">
+      <a href="mailto:founder@kalmuslabs.com" class="btn primary">Contact us</a>
+      <a href="#join" class="btn secondary">Join us</a>
+    </div>
   </section>
 
   <!-- About -->
   <section class="about">
     <h2>About</h2>
     <p>
-      At Kalmus Labs, we are building human-centered AI tools for learning. 
+      At Kalmus Labs, we are building human-centered AI tools for learning.  
       Our first prototype, <strong>BookBuddy</strong>, helps people engage with knowledge in a new way.
     </p>
   </section>
 
   <!-- Join Us -->
-  <section class="join">
+  <section id="join" class="join">
     <h2>Join Us</h2>
-    <p>
-      We are looking for passionate builders — Tech Lead, Engineers, Designer.  
-      If you want to shape the future of learning, reach out:
-      <a href="mailto:founder@kalmuslabs.com">founder@kalmuslabs.com</a>
-    </p>
+    <div class="cards">
+      <div class="card">
+        <h3>👨‍💻 Tech Lead</h3>
+        <p>Help us shape the technical vision and architecture.</p>
+        <a href="mailto:founder@kalmuslabs.com" class="btn small">Apply now</a>
+      </div>
+      <div class="card">
+        <h3>💻 Engineers</h3>
+        <p>Build innovative AI-powered products for education.</p>
+        <a href="mailto:founder@kalmuslabs.com" class="btn small">Apply now</a>
+      </div>
+      <div class="card">
+        <h3>🎨 Designer</h3>
+        <p>Create beautiful and intuitive user experiences.</p>
+        <a href="mailto:founder@kalmuslabs.com" class="btn small">Apply now</a>
+      </div>
+    </div>
   </section>
 
   <!-- Footer -->
   <footer>
+    <img src="logo.png" alt="Kalmus Labs Logo" class="footer-logo">
     <p>© 2025 Kalmus Labs</p>
-    <p>
-      <a href="https://linkedin.com/company/kalmuslabs">LinkedIn</a>
-    </p>
+    <a href="https://www.linkedin.com" target="_blank" class="linkedin">LinkedIn</a>
   </footer>
 </body>
 </html>
