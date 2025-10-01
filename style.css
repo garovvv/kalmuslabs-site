@@ -7,20 +7,21 @@
   --brand:#2A4D9B;
   --brand-2:#6b8ce3;
 
-  /* global morning gradient (page-wide; a bit darker on top) */
-  --dawn-0:#f6f8fc;   /* pearly near-white bottom */
-  --dawn-1:#e6ecf6;
-  --dawn-2:#d1dbef;
-  --dawn-3:#bdcae6;   /* top sky, slightly deeper */
+  /* global morning gradient (slightly deeper on top) */
+  --dawn-0:#f6f8fc;  /* pearly near-white bottom */
+  --dawn-1:#e5ecf6;
+  --dawn-2:#ccd7ee;
+  --dawn-3:#b9c8e5;  /* top */
 
   /* star tones - warm */
-  --star-warm:#ffeea7;   /* soft warm yellow */
-  --star-white:#fffdf6;  /* warm-ish white */
+  --star-w1:#fff6bf;
+  --star-w2:#ffefaa;
+  --star-w3:#fffdf3;
   --star-cool:#eef3ff;
 
   /* soft glows */
-  --aurora-1:rgba(160,190,255,.3);
-  --aurora-2:rgba(220,230,255,.22);
+  --aurora-1:rgba(160,190,255,.32);
+  --aurora-2:rgba(220,230,255,.24);
 }
 
 *{box-sizing:border-box}
@@ -29,7 +30,6 @@ body{
   margin:0;
   font-family:'Manrope', system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
   color:var(--ink);
-  /* ONE continuous gradient across the whole page */
   background:linear-gradient(180deg, var(--dawn-3) 0%, var(--dawn-2) 30%, var(--dawn-1) 65%, var(--dawn-0) 100%);
   text-align:center;
   scroll-behavior:smooth;
@@ -40,69 +40,62 @@ body{
   position:relative;
   padding:120px 20px 80px;
   overflow:hidden;
-  background:transparent; /* so the page gradient flows */
-  border-bottom:1px solid rgba(233,236,243,.5);
+  background:transparent;
+  border-bottom:1px solid rgba(233,236,243,.35);
   animation:fadeIn 1.2s ease;
 }
-
-/* ensure stars behind everything */
 .hero > :not(.sky){ position:relative; z-index:1; }
 
-/* ===== Sky (visible, warm stars; start from very top) ===== */
+/* ===== Sky (starts from very top, more/warmer stars) ===== */
 .sky{
   position:absolute; inset:0;
-  height:68vh; /* tall so stars start at top and fade before purpose */
+  height:72vh;
   pointer-events:none; will-change:transform;
   z-index:0;
 
-  /* Fade stars near bottom of hero to avoid overlap with sections */
-  -webkit-mask-image:linear-gradient(#000 0%, #000 82%, rgba(0,0,0,0) 100%);
-  mask-image:linear-gradient(#000 0%, #000 82%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image:linear-gradient(#000 0%, #000 84%, rgba(0,0,0,0) 100%);
+  mask-image:linear-gradient(#000 0%, #000 84%, rgba(0,0,0,0) 100%);
 
-  /* layered star fields: more density + various sizes */
   background:
-    radial-gradient(3px 3px at 8% 12%, var(--star-warm) 96%, transparent 100%) repeat,
-    radial-gradient(2.6px 2.6px at 22% 24%, var(--star-white) 96%, transparent 100%) repeat,
-    radial-gradient(2.2px 2.2px at 38% 18%, var(--star-cool) 96%, transparent 100%) repeat,
-    radial-gradient(1.8px 1.8px at 58% 26%, var(--star-white) 96%, transparent 100%) repeat,
-    radial-gradient(1.6px 1.6px at 76% 14%, var(--star-warm) 96%, transparent 100%) repeat,
-    radial-gradient(1.4px 1.4px at 88% 22%, var(--star-white) 96%, transparent 100%) repeat,
-    radial-gradient(1.2px 1.2px at 44% 36%, var(--star-warm) 96%, transparent 100%) repeat,
+    /* bigger warm speckles */
+    radial-gradient(3.2px 3.2px at 6% 10%, var(--star-w1) 96%, transparent 100%) repeat,
+    radial-gradient(2.8px 2.8px at 20% 22%, var(--star-w2) 96%, transparent 100%) repeat,
+    radial-gradient(2.6px 2.6px at 36% 16%, var(--star-w3) 96%, transparent 100%) repeat,
+    radial-gradient(2.2px 2.2px at 58% 24%, var(--star-cool) 96%, transparent 100%) repeat,
+    radial-gradient(1.8px 1.8px at 76% 14%, var(--star-w2) 96%, transparent 100%) repeat,
+    radial-gradient(1.6px 1.6px at 88% 20%, var(--star-w3) 96%, transparent 100%) repeat,
+    radial-gradient(1.4px 1.4px at 44% 34%, var(--star-w1) 96%, transparent 100%) repeat,
     radial-gradient(1.2px 1.2px at 70% 44%, var(--star-cool) 96%, transparent 100%) repeat;
-  background-size: 240px 240px, 300px 300px, 360px 360px, 420px 420px, 520px 520px, 580px 580px, 260px 260px, 340px 340px;
+  background-size: 220px 220px, 260px 260px, 320px 320px, 380px 380px, 460px 460px, 520px 520px, 240px 240px, 320px 320px;
 
   animation: twinkleA 10.5s ease-in-out infinite alternate;
-  opacity:.98;
-  filter: contrast(110%) brightness(104%);
+  opacity:.99;
+  filter: contrast(112%) brightness(104%);
 }
-
-/* gentle aurora highlights */
 .sky::before{
   content:"";
   position:absolute; inset:0;
   background:
-    radial-gradient(115% 82% at 50% -28%, var(--aurora-1) 0%, rgba(255,255,255,0) 64%),
-    radial-gradient(95% 68% at 24% -16%, var(--aurora-2) 0%, rgba(255,255,255,0) 60%);
+    radial-gradient(120% 82% at 50% -30%, var(--aurora-1) 0%, rgba(255,255,255,0) 64%),
+    radial-gradient(98% 68% at 24% -16%, var(--aurora-2) 0%, rgba(255,255,255,0) 60%);
   mix-blend-mode:screen;
-  opacity:.92;
+  opacity:.93;
 }
-
-/* sparse larger sparks */
 .sky::after{
   content:"";
   position:absolute; inset:0;
   background:
-    radial-gradient(3.4px 3.4px at 72% 18%, var(--star-white) 98%, transparent 100%) repeat,
-    radial-gradient(2.8px 2.8px at 30% 52%, var(--star-warm) 98%, transparent 100%) repeat;
+    radial-gradient(3.6px 3.6px at 72% 18%, var(--star-w3) 98%, transparent 100%) repeat,
+    radial-gradient(3px 3px at 30% 52%, var(--star-w1) 98%, transparent 100%) repeat;
   background-size: 520px 520px, 600px 600px;
   animation: twinkleB 14s ease-in-out infinite alternate;
-  opacity:.65;
+  opacity:.68;
 }
 
 /* ===== Logo + headings ===== */
 .logo{
   width:120px; margin:0 auto 22px; display:block;
-  animation:float 7.8s ease-in-out infinite; /* +15% amplitude vs previous */
+  animation:float 8s ease-in-out infinite; /* ещё +15% амплитуда */
 }
 h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif; letter-spacing:0.2px; }
 .hero h1{
@@ -117,8 +110,8 @@ h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif; letter-spacing:0.2px; }
 .btn{
   padding:12px 22px; border-radius:12px; font-weight:800;
   text-decoration:none; display:inline-block; border:2px solid transparent;
-  transition:transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease, border-color .18s ease;
-  will-change:transform;
+  transition:transform .2s cubic-bezier(.2,.8,.2,1), box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+  will-change:transform, box-shadow;
 }
 .btn.primary{background:var(--brand); color:#fff; box-shadow:0 6px 14px rgba(42,77,155,.25)}
 .btn.primary:hover{transform:translateY(-1px) scale(1.05); background:#24407f; box-shadow:0 10px 20px rgba(42,77,155,.28)}
@@ -127,8 +120,20 @@ h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif; letter-spacing:0.2px; }
 .btn.secondary:hover{background:var(--brand); color:#fff; transform:translateY(-1px) scale(1.05)}
 .btn.small{padding:10px 16px; border-radius:10px}
 
+/* ===== Section soft blend (top/bottom feather) ===== */
+.section-blend{ position:relative; }
+.section-blend::before,
+.section-blend::after{
+  content:""; position:absolute; left:0; right:0; height:84px; pointer-events:none;
+  /* Feather with live backdrop so граница смешивается с тем, что ниже/выше */
+  -webkit-backdrop-filter: blur(6px) saturate(106%);
+  backdrop-filter: blur(6px) saturate(106%);
+}
+.section-blend::before{ top:-1px; background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.12) 100%); }
+.section-blend::after{ bottom:-1px; background:linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.12) 100%); }
+
 /* ===== Purpose ===== */
-.purpose{padding:96px 20px 72px;}
+.purpose{padding:96px 20px 72px; background:transparent;}
 .purpose h2{ font-size:2.3rem; margin:0 0 28px; font-weight:800; }
 .purpose-grid{
   display:grid; gap:18px;
@@ -138,13 +143,16 @@ h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif; letter-spacing:0.2px; }
 .purpose-card{
   background:#fff; border:1px solid #eceff6; border-radius:18px; text-align:left;
   padding:22px 22px 18px; box-shadow:0 6px 14px rgba(0,0,0,.06);
-  transform:translateY(16px); opacity:0;
-  transition:.5s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, transform .25s ease, border-color .25s ease, background .25s ease;
+  opacity:0; transform:translateY(16px);
+  transform-origin:center; will-change:transform, box-shadow;
+  transition:transform 220ms cubic-bezier(.2,.8,.2,1), box-shadow 220ms ease, border-color 200ms ease, background 200ms ease, opacity 450ms ease;
 }
 .purpose-card h3{ margin:4px 0 10px; font-size:1.28rem; font-weight:800; }
 .purpose-card p{ color:var(--muted); margin:0 0 10px; }
 .bullets{ padding-left:18px; margin:8px 0 0; }
 .bullets li{ margin:6px 0; color:#333; }
+
+/* плавный hover (без рывков) */
 .purpose-card:hover{
   transform:translateY(0) scale(1.018);
   border-color:#d7e1fb;
@@ -154,15 +162,20 @@ h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif; letter-spacing:0.2px; }
 .reveal.in{opacity:1; transform:none}
 
 /* ===== Product (BookBuddy) ===== */
-.product{ padding:48px 20px 16px; }
+.product{ padding:48px 20px 16px; background:transparent; }
+.product-wrap.reveal{ /* только эффект появления на wrapper’е */
+  opacity:0; transform:translateY(18px);
+  transition:opacity 650ms cubic-bezier(.2,.8,.2,1), transform 650ms cubic-bezier(.2,.8,.2,1);
+}
+.product-wrap.reveal.in{ opacity:1; transform:none; }
+
 .product-frame{
   position:relative; margin:20px auto 0;
   width:min(980px,92vw); aspect-ratio:16/9;
-  transform:rotate(-6.5deg); transform-origin:center 60%;
+  transform:rotate(-7.5deg); transform-origin:center 60%;
   border-radius:20px; overflow:hidden;
   box-shadow:0 18px 50px rgba(0,0,0,.12), 0 6px 18px rgba(0,0,0,.08);
   background:#0b1022;
-  will-change:transform;
 }
 .scroll-container{width:100%; height:100%; overflow:hidden; overscroll-behavior:contain;}
 .product-frame:hover .scroll-container{ overflow-y:auto; }
@@ -194,9 +207,10 @@ h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif; letter-spacing:0.2px; }
 .card{
   background:#fff; border-radius:18px; padding:22px; text-align:left;
   box-shadow:0 6px 14px rgba(0,0,0,.06); border:1px solid #e9edf6;
-  transform:translateY(14px); opacity:0;
+  opacity:0; transform:translateY(14px);
   display:flex; flex-direction:column;
-  transition:.5s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, transform .25s ease, border-color .25s ease, background .25s ease;
+  transform-origin:center; will-change:transform, box-shadow;
+  transition:transform 220ms cubic-bezier(.2,.8,.2,1), box-shadow 220ms ease, border-color 200ms ease, background 200ms ease, opacity 450ms ease;
 }
 .card h3{margin:0 0 8px; font-weight:800}
 .card p{color:#444; margin:0 0 10px}
@@ -230,13 +244,13 @@ footer p{color:#555; margin:6px 0}
 .seq-init{ opacity:0; transform:translateY(12px); transition:opacity .55s ease var(--d,0ms), transform .55s ease var(--d,0ms); }
 .seq-init.in{ opacity:1; transform:none; }
 
-/* Reveal blocks (add-once; no removal to avoid jitter at page end) */
+/* Reveal (добавляем один раз) */
 .reveal-init{ opacity:0; transform:translateY(16px); }
 .reveal-init.in{ opacity:1; transform:none; transition:.65s cubic-bezier(.2,.8,.2,1); }
 
 /* ===== Animations ===== */
 @keyframes fadeIn{from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:none}}
-@keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)}} /* +15% */
+@keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-23px)}} /* усилили ещё */
 @keyframes twinkleA { from { opacity:.72 } to { opacity: 1 } }
 @keyframes twinkleB { from { opacity:.46 } to { opacity: .78 } }
 
