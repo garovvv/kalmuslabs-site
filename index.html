@@ -9,7 +9,7 @@
   <link rel="icon" href="favicon.ico">
   <link rel="icon" type="image/png" href="logo.png" sizes="any">
 
-  <!-- Fonts (modern, distinctive) -->
+  <!-- Fonts (modern) -->
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
@@ -17,7 +17,6 @@
 <body>
   <!-- Hero -->
   <section class="hero">
-    <!-- Stars layer (behind UI) -->
     <div class="sky" aria-hidden="true"></div>
 
     <img src="logo_main.png" alt="Kalmus Labs Logo" class="logo seq" />
@@ -31,7 +30,7 @@
   </section>
 
   <!-- Purpose -->
-  <section class="purpose" id="purpose">
+  <section class="purpose section-blend" id="purpose">
     <h2 class="seq">Purpose</h2>
     <div class="purpose-grid">
       <article class="purpose-card reveal">
@@ -76,22 +75,25 @@
   </section>
 
   <!-- BookBuddy Preview (between Purpose and Join Us) -->
-  <section class="product">
-    <div class="product-frame reveal">
-      <div class="scroll-container">
-        <img src="BD.png" alt="BookBuddy preview">
-      </div>
-      <div class="slider-caption">
-        <div class="caption-glass">
-          <h3>BookBuddy</h3>
-          <p>Turn any document into a personal learning session.</p>
+  <section class="product section-blend">
+    <!-- ВАЖНО: reveal на wrapper, а наклон у .product-frame -->
+    <div class="product-wrap reveal">
+      <div class="product-frame">
+        <div class="scroll-container">
+          <img src="BD.png" alt="BookBuddy preview">
+        </div>
+        <div class="slider-caption">
+          <div class="caption-glass">
+            <h3>BookBuddy</h3>
+            <p>Turn any document into a personal learning session.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Join Us -->
-  <section id="join" class="join">
+  <section id="join" class="join section-blend">
     <h2 class="seq">Join Us</h2>
     <p class="join-sub seq">Build the future with us - not as a cog, but as an owner.</p>
 
@@ -150,9 +152,7 @@
 
     // scroll reveal (add once to avoid jitter at page end)
     const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('in');
-      });
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
     }, { threshold: 0.16, rootMargin: '0px 0px -12% 0px' });
 
     document.querySelectorAll('.reveal').forEach(el => {
