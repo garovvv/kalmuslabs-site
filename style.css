@@ -41,6 +41,8 @@ body{
 .sky{
   position:absolute; inset:0;
   height:100vh;
+  background: red; /* Весь блок неба будет красным */
+  z-index: 1000;   /* Подними наверх, чтобы всё перекрывал */
   pointer-events:none; will-change:transform;
   mix-blend-mode:screen;
 
