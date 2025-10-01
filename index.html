@@ -9,10 +9,10 @@
   <link rel="icon" href="favicon.ico">
   <link rel="icon" type="image/png" href="logo.png" sizes="any">
 
-  <!-- Fonts (no @import in CSS; fast + reliable) -->
+  <!-- Google Font for body -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -146,7 +146,6 @@
 
   <!-- Sequencing + Reveal -->
   <script>
-    // последовательная загрузка сверху вниз
     const seqEls = [...document.querySelectorAll('.seq')];
     seqEls.forEach((el, i) => {
       el.style.setProperty('--d', `${i * 110}ms`);
@@ -154,7 +153,6 @@
       requestAnimationFrame(() => el.classList.add('in'));
     });
 
-    // reveal (без remove — стабильнее на мобилах)
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
     }, { threshold: 0.18, rootMargin: '0px 0px -14% 0px' });
@@ -164,7 +162,6 @@
       io.observe(el);
     });
 
-    // Параллакс неба
     const sky = document.querySelector('.sky');
     addEventListener('scroll', () => {
       const y = Math.min(170, window.scrollY * 0.12);
