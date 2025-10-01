@@ -16,7 +16,7 @@
 </head>
 <body>
   <!-- Hero -->
-  <section class="hero feather-bottom">
+  <section class="hero seam-bottom">
     <div class="sky" aria-hidden="true"></div>
 
     <img src="logo_main.png" alt="Kalmus Labs Logo" class="logo seq" />
@@ -30,7 +30,7 @@
   </section>
 
   <!-- Purpose -->
-  <section class="purpose feather-both" id="purpose">
+  <section class="purpose seam-both" id="purpose">
     <h2 class="seq">Purpose</h2>
     <div class="purpose-grid">
       <article class="purpose-card reveal">
@@ -75,8 +75,7 @@
   </section>
 
   <!-- BookBuddy Preview -->
-  <section class="product feather-both">
-    <!-- reveal на wrapper, 3D-наклон внутри -->
+  <section class="product seam-both">
     <div class="product-wrap reveal">
       <div class="product-perspective">
         <div class="product-frame">
@@ -96,7 +95,7 @@
   </section>
 
   <!-- Join Us -->
-  <section id="join" class="join feather-top">
+  <section id="join" class="join seam-top">
     <h2 class="seq">Join Us</h2>
     <p class="join-sub seq">Build the future with us - not as a cog, but as an owner.</p>
 
@@ -153,16 +152,13 @@
       requestAnimationFrame(() => el.classList.add('in'));
     });
 
-    // reveal с мягким скрытием (без дрожи на нижней границе)
+    // reveal с плавным появлением/исчезновением
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('in');
-        } else {
-          e.target.classList.remove('in');
-        }
+        if (e.isIntersecting) e.target.classList.add('in');
+        else e.target.classList.remove('in');
       });
-    }, { threshold: [0, 0.15, 0.35], rootMargin: '0px 0px -18% 0px' });
+    }, { threshold: [0, 0.18, 0.35], rootMargin: '0px 0px -18% 0px' });
 
     document.querySelectorAll('.reveal').forEach(el => {
       el.classList.add('reveal-init');
