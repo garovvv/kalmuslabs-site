@@ -9,15 +9,15 @@
   <link rel="icon" href="favicon.ico">
   <link rel="icon" type="image/png" href="logo.png" sizes="any">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Fonts (modern, distinctive) -->
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <!-- Hero -->
   <section class="hero">
-    <!-- Stars layer (always behind) -->
+    <!-- Stars layer (behind UI) -->
     <div class="sky" aria-hidden="true"></div>
 
     <img src="logo_main.png" alt="Kalmus Labs Logo" class="logo seq" />
@@ -30,7 +30,7 @@
     </div>
   </section>
 
-  <!-- Purpose (Problem -> Belief -> Solution) -->
+  <!-- Purpose -->
   <section class="purpose" id="purpose">
     <h2 class="seq">Purpose</h2>
     <div class="purpose-grid">
@@ -138,7 +138,7 @@
     <a href="https://www.linkedin.com" target="_blank" class="linkedin">LinkedIn</a>
   </footer>
 
-  <!-- Sequencing + Reveal + Smooth dim-out -->
+  <!-- Sequencing + Reveal -->
   <script>
     // initial sequence (top -> down)
     const seqEls = [...document.querySelectorAll('.seq')];
@@ -148,19 +148,12 @@
       requestAnimationFrame(() => el.classList.add('in'));
     });
 
-    // scroll reveal + gentle fade-out when leaving viewport
+    // scroll reveal (add once to avoid jitter at page end)
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('in');
-          e.target.classList.remove('out');
-        } else {
-          // do not vanish instantly - go to "out" state (dim)
-          e.target.classList.add('out');
-          e.target.classList.remove('in');
-        }
+        if (e.isIntersecting) e.target.classList.add('in');
       });
-    }, { threshold: 0.18, rootMargin: '0px 0px -12% 0px' });
+    }, { threshold: 0.16, rootMargin: '0px 0px -12% 0px' });
 
     document.querySelectorAll('.reveal').forEach(el => {
       el.classList.add('reveal-init');
@@ -170,8 +163,8 @@
     // Parallax for sky
     const sky = document.querySelector('.sky');
     addEventListener('scroll', () => {
-      const y = Math.min(160, window.scrollY * 0.12);
-      sky.style.transform = `translateY(${ -y }px)`;
+      const y = Math.min(170, window.scrollY * 0.12);
+      sky.style.transform = `translateY(${-y}px)`;
     }, {passive:true});
   </script>
 </body>
