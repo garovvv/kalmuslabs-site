@@ -7,7 +7,7 @@
   --brand:#2A4D9B;
   --brand-2:#6b8ce3;
 
-  /* global morning gradient (deeper top -> pearly bottom) */
+  /* global morning gradient */
   --dawn-0:#f5f7fb;
   --dawn-1:#e3eaf6;
   --dawn-2:#cbd6ee;
@@ -27,7 +27,7 @@
 *{box-sizing:border-box}
 html,body{height:100%}
 
-/* Жёстко фиксируем шрифты (чтобы не «терялись») */
+/* --- строгая типографика (чтобы не «слетала») --- */
 html{ font-family:'Manrope', system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif !important; }
 body{
   margin:0;
@@ -40,7 +40,7 @@ body{
 /* ===== Hero ===== */
 .hero{
   position:relative;
-  padding:120px 20px 80px;
+  padding:100px 20px 80px;
   overflow:hidden;
   background:transparent;
   animation:fadeIn 1.2s ease;
@@ -89,11 +89,17 @@ body{
 /* ===== Typography ===== */
 h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif !important; letter-spacing:0.2px; }
 .hero h1{
-  font-size:3.25rem; font-weight:800; margin:10px 0 6px;
+  font-size:3rem; font-weight:800; margin:12px 0 6px;
   background:linear-gradient(90deg,var(--brand),var(--brand-2));
   -webkit-background-clip:text; -webkit-text-fill-color:transparent;
 }
-.tagline{ font-size:1.14rem; color:#333d; margin:0 0 28px; }
+.tagline{ font-size:1.08rem; color:#333d; margin:0 0 26px; }
+
+/* ===== Logo (вернул мягкое «плавание») ===== */
+.logo{
+  width:110px; margin:0 auto 20px; display:block;
+  animation:float 8s ease-in-out infinite;
+}
 
 /* ===== Buttons ===== */
 .hero-buttons{display:flex; justify-content:center; gap:16px;}
@@ -110,29 +116,29 @@ h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif !important; letter-spacing
 .btn.secondary:hover{background:var(--brand); color:#fff; transform:translateY(-1px) scale(1.05)}
 .btn.small{padding:10px 16px; border-radius:10px}
 
-/* ===== Seam softeners (тонкие «перья» на стыках) ===== */
+/* ===== Узкое правильное размытие на стыках ===== */
 .seam-top, .seam-bottom, .seam-both{ position:relative; }
-.seam-top::before,
+.seam-top::after,
 .seam-bottom::after,
 .seam-both::before,
 .seam-both::after{
-  content:""; position:absolute; left:0; right:0; height:48px; pointer-events:none;
+  content:""; position:absolute; left:0; right:0; height:28px; pointer-events:none; z-index:0;
+  /* настоящий размазыватель — размывает то, что ПОД ним */
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  /* узкая перьевая маска, чтобы линия была тонкой */
+  -webkit-mask-image:linear-gradient(to bottom, rgba(0,0,0,0), #000 30%, #000 70%, rgba(0,0,0,0));
+  mask-image:linear-gradient(to bottom, rgba(0,0,0,0), #000 30%, #000 70%, rgba(0,0,0,0));
   background:transparent;
 }
-.seam-top::before,
-.seam-both::before{
-  top:-1px;
-  background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.08) 100%);
-}
-.seam-bottom::after,
-.seam-both::after{
-  bottom:-1px;
-  background:linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.08) 100%);
-}
+.seam-top::after{ top:-14px; }
+.seam-bottom::after{ bottom:-14px; }
+.seam-both::before{ top:-14px; }
+.seam-both::after{ bottom:-14px; }
 
 /* ===== Purpose ===== */
-.purpose{padding:96px 20px 72px; background:transparent;}
-.purpose h2{ font-size:2.3rem; margin:0 0 28px; font-weight:800; }
+.purpose{padding:92px 20px 68px; background:transparent;}
+.purpose h2{ font-size:2.2rem; margin:0 0 26px; font-weight:800; }
 .purpose-grid{
   display:grid; gap:18px;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -145,7 +151,7 @@ h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif !important; letter-spacing
   transform-origin:center; will-change:transform, box-shadow, background, border-color;
   transition:transform 220ms cubic-bezier(.2,.8,.2,1), box-shadow 220ms ease, border-color 200ms ease, background 200ms ease, opacity 450ms ease;
 }
-.purpose-card h3{ margin:4px 0 10px; font-size:1.28rem; font-weight:800; }
+.purpose-card h3{ margin:4px 0 10px; font-size:1.26rem; font-weight:800; }
 .purpose-card p{ color:var(--muted); margin:0 0 10px; }
 .bullets{ padding-left:18px; margin:8px 0 0; }
 .bullets li{ margin:6px 0; color:#333; }
@@ -155,10 +161,11 @@ h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif !important; letter-spacing
   background:linear-gradient(180deg,#ffffff 0%, #f3f6ff 100%);
   box-shadow:0 14px 26px rgba(42,77,155,.12);
 }
-.reveal.in{opacity:1; transform:none}
+.reveal-init{ opacity:0; transform:translateY(18px); }
+.reveal-init.in{ opacity:1; transform:none; transition:opacity .65s cubic-bezier(.2,.8,.2,1), transform .65s cubic-bezier(.2,.8,.2,1); }
 
 /* ===== Product (BookBuddy) ===== */
-.product{ padding:60px 20px 90px; background:transparent; }
+.product{ padding:60px 20px 96px; background:transparent; }
 .product-wrap{ max-width:1200px; margin:0 auto; }
 .product-perspective{
   position:relative;
@@ -193,21 +200,26 @@ h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif !important; letter-spacing
   -webkit-backdrop-filter:saturate(120%) blur(8px);
   backdrop-filter:saturate(120%) blur(8px);
   box-shadow:0 6px 16px rgba(0,0,0,.25);
+  max-width:62%;
 }
 .slider-caption h3{font-size:1.2rem; margin:0 0 4px; font-weight:800;}
 .slider-caption p{font-size:.98rem; opacity:.96; margin:0;}
 
-/* На мобильных упрощаем угол и убираем «мельтешение» */
+/* Мобильные фиксы против «мельтешения» и слишком большой подписи */
 @media (max-width: 768px){
+  .logo{ width:96px; }
+  .hero{ padding-top:88px; }
   .product{ padding-bottom: 110px; }
-  .product-frame{ transform: rotateZ(-4deg); }
-  .slider-caption{ bottom:12px; left:12px; right:auto; }
-  .caption-glass{ padding:10px 12px; }
+  .product-frame{ transform: rotateZ(-4.5deg); } /* убираем rotateX — меньше перерисовок */
+  .slider-caption{ bottom:10px; left:10px; right:auto; }
+  .caption-glass{ padding:8px 10px; max-width:70%; }
+  .slider-caption h3{ font-size:1rem; }
+  .slider-caption p{ font-size:.88rem; }
 }
 
 /* ===== Join Us ===== */
 .join{ padding:96px 20px; background:transparent; }
-.join h2{ font-size:2.3rem; margin:0 0 8px; font-weight:800; }
+.join h2{ font-size:2.2rem; margin:0 0 8px; font-weight:800; }
 .join-sub{ color:#5a5a5a; margin:0 0 28px; }
 .cards{
   display:grid; gap:18px;
@@ -254,10 +266,6 @@ footer p{color:#555; margin:6px 0}
 .seq-init{ opacity:0; transform:translateY(12px); transition:opacity .55s ease var(--d,0ms), transform .55s ease var(--d,0ms); }
 .seq-init.in{ opacity:1; transform:none; }
 
-/* Reveal in/out */
-.reveal-init{ opacity:0; transform:translateY(18px); }
-.reveal-init.in{ opacity:1; transform:none; transition:opacity .65s cubic-bezier(.2,.8,.2,1), transform .65s cubic-bezier(.2,.8,.2,1); }
-
 /* ===== Animations ===== */
 @keyframes fadeIn{from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:none}}
 @keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-23px)}}
@@ -267,5 +275,5 @@ footer p{color:#555; margin:6px 0}
 @media (prefers-reduced-motion: reduce){
   .sky, .sky::before, .sky::after{ animation:none !important; }
   .logo{ animation:none; }
-  .seq-init, .reveal-init{ transition:none !important; opacity:1 !important; transform:none !important; }
+  .seq-init{ transition:none !important; opacity:1 !important; transform:none !important; }
 }
