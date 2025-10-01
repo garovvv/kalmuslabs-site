@@ -34,7 +34,7 @@ body{
   position:relative;
   padding:120px 20px 80px;
   overflow:hidden;
-  background: linear-gradient(180deg, #eaf3ff 0%, #f6f9ff 60%, #ffffff 100%);
+  background: linear-gradient(180deg, #ecf3ff 0%, #f4f8ff 58%, #ffffff 100%);
   border-bottom:1px solid #e9ecf3;
   animation:fadeIn 1.2s ease;
 }
@@ -54,16 +54,24 @@ body{
 /* stars */
 .sky{
   position:absolute; inset:0;
-  width:100%; height:100%;
   pointer-events:none;
+  /* два слоя звёзд разного размера/плотности */
   background:
-    radial-gradient(1.5px 1.5px at 15% 25%, rgba(255,255,255,0.9) 40%, transparent 41%) repeat,
-    radial-gradient(1.2px 1.2px at 45% 40%, rgba(255,255,255,0.7) 40%, transparent 41%) repeat,
-    radial-gradient(2px 2px at 75% 20%, rgba(255,255,255,0.6) 40%, transparent 41%) repeat,
-    radial-gradient(1.8px 1.8px at 85% 35%, rgba(255,255,255,0.8) 40%, transparent 41%) repeat;
-  background-size: 240px 240px, 320px 320px, 400px 400px, 500px 500px;
-  animation: twinkle 7s ease-in-out infinite alternate;
-  opacity:.7;
+    /* слой 1 — чуть более крупные (2px), редкие и мягко-голубые */
+    radial-gradient(2px 2px at 12% 24%, rgba(185,206,255,.95) 47%, transparent 48%) repeat,
+    radial-gradient(2px 2px at 37% 18%, rgba(207,220,255,.85) 47%, transparent 48%) repeat,
+    radial-gradient(2px 2px at 72% 28%, rgba(193,210,255,.9) 47%, transparent 48%) repeat,
+    /* слой 2 — мелкие (1.2px), погуще */
+    radial-gradient(1.2px 1.2px at 18% 42%, rgba(209,224,255,.8) 45%, transparent 46%) repeat,
+    radial-gradient(1.2px 1.2px at 58% 30%, rgba(221,233,255,.75) 45%, transparent 46%) repeat,
+    radial-gradient(1.2px 1.2px at 85% 12%, rgba(200,216,255,.78) 45%, transparent 46%) repeat;
+  background-size: 360px 360px, 420px 420px, 520px 520px,
+                    240px 240px, 300px 300px, 380px 380px;
+  /* лёгкое «мерцание» */
+  animation: twinkleA 8s ease-in-out infinite alternate;
+  /* без общей сильной прозрачности и blur — так лучше видно */
+  opacity:.9;
+  filter: contrast(105%) brightness(103%);
 }
 
 /* слой редких чуть крупных звёзд + дополнительное нежное свечение */
@@ -71,12 +79,12 @@ body{
   content:"";
   position:absolute; inset:0;
   background:
-    radial-gradient(1px 1px at 25% 15%, rgba(255,255,255,0.5) 40%, transparent 41%) repeat,
-    radial-gradient(1.3px 1.3px at 65% 30%, rgba(255,255,255,0.4) 40%, transparent 41%) repeat,
-    radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.55) 40%, transparent 41%) repeat;
-  background-size: 300px 300px, 420px 420px, 500px 500px;
-  animation: twinkle 12s ease-in-out infinite alternate;
-  opacity:.45;
+    radial-gradient(1.6px 1.6px at 25% 20%, rgba(186,204,255,.55) 46%, transparent 47%) repeat,
+    radial-gradient(1.4px 1.4px at 62% 36%, rgba(198,214,255,.5) 46%, transparent 47%) repeat,
+    radial-gradient(1.6px 1.6px at 80% 26%, rgba(210,224,255,.52) 46%, transparent 47%) repeat;
+  background-size: 460px 460px, 540px 540px, 600px 600px;
+  animation: twinkleB 13s ease-in-out infinite alternate;
+  opacity:.55;
 }
 
 .logo{
@@ -176,8 +184,8 @@ footer p{color:#555; margin:6px 0}
 /* ===== Animations ===== */
 @keyframes fadeIn{from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:none}}
 @keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)}}
-@keyframes twinkleA{0%{opacity:.45} 50%{opacity:.85} 100%{opacity:.55}}
-@keyframes twinkleB{0%{opacity:.35} 50%{opacity:.75} 100%{opacity:.5}}
+@keyframes twinkleA { from { opacity:.75 } to { opacity: .95 } }
+@keyframes twinkleB { from { opacity:.4 } to { opacity: .65 } }
 
 /* Respect motion prefs */
 @media (prefers-reduced-motion: reduce){
