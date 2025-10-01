@@ -1,36 +1,36 @@
 /* ===== Base (dawn sky pastel palette) ===== */
 :root{
-  --ink:#111318;
-  --muted:#4a4f58;
+  --ink:#0f1320;
+  --muted:#525a66;
 
   /* brand */
   --brand:#2A4D9B;
   --brand-2:#6b8ce3;
 
-  /* global morning gradient (page-wide) */
-  --dawn-0:#f7f9fc;  /* pearly near-white */
-  --dawn-1:#e8eef7;  /* pastel blue-gray */
-  --dawn-2:#d7e1f0;  /* deeper but soft */
-  --dawn-3:#c7d2e7;  /* top sky */
+  /* global morning gradient (page-wide; a bit darker on top) */
+  --dawn-0:#f6f8fc;   /* pearly near-white bottom */
+  --dawn-1:#e6ecf6;
+  --dawn-2:#d1dbef;
+  --dawn-3:#bdcae6;   /* top sky, slightly deeper */
 
-  /* star tones */
-  --star-warm:#fff4c6;   /* very light warm */
-  --star-white:#ffffff;
+  /* star tones - warm */
+  --star-warm:#ffeea7;   /* soft warm yellow */
+  --star-white:#fffdf6;  /* warm-ish white */
   --star-cool:#eef3ff;
 
   /* soft glows */
-  --aurora-1:rgba(160,190,255,.28);
-  --aurora-2:rgba(220,230,255,.20);
+  --aurora-1:rgba(160,190,255,.3);
+  --aurora-2:rgba(220,230,255,.22);
 }
 
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0;
-  font-family:'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+  font-family:'Manrope', system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
   color:var(--ink);
   /* ONE continuous gradient across the whole page */
-  background:linear-gradient(180deg, var(--dawn-3) 0%, var(--dawn-2) 32%, var(--dawn-1) 68%, var(--dawn-0) 100%);
+  background:linear-gradient(180deg, var(--dawn-3) 0%, var(--dawn-2) 30%, var(--dawn-1) 65%, var(--dawn-0) 100%);
   text-align:center;
   scroll-behavior:smooth;
 }
@@ -40,38 +40,40 @@ body{
   position:relative;
   padding:120px 20px 80px;
   overflow:hidden;
-  /* transparent so body gradient is continuous */
-  background:transparent;
-  border-bottom:1px solid rgba(233,236,243,.6);
+  background:transparent; /* so the page gradient flows */
+  border-bottom:1px solid rgba(233,236,243,.5);
   animation:fadeIn 1.2s ease;
 }
 
 /* ensure stars behind everything */
 .hero > :not(.sky){ position:relative; z-index:1; }
 
-/* ===== Sky (visible, warm-ish stars; behind UI) ===== */
+/* ===== Sky (visible, warm stars; start from very top) ===== */
 .sky{
   position:absolute; inset:0;
-  height:64vh;
+  height:68vh; /* tall so stars start at top and fade before purpose */
   pointer-events:none; will-change:transform;
   z-index:0;
-  /* Fade stars near bottom of hero to avoid overlapping sections */
-  -webkit-mask-image:linear-gradient(#000 0%, #000 78%, rgba(0,0,0,0) 100%);
-  mask-image:linear-gradient(#000 0%, #000 78%, rgba(0,0,0,0) 100%);
 
-  /* multiple layers, sizes, tints */
+  /* Fade stars near bottom of hero to avoid overlap with sections */
+  -webkit-mask-image:linear-gradient(#000 0%, #000 82%, rgba(0,0,0,0) 100%);
+  mask-image:linear-gradient(#000 0%, #000 82%, rgba(0,0,0,0) 100%);
+
+  /* layered star fields: more density + various sizes */
   background:
-    radial-gradient(2.6px 2.6px at 12% 22%, var(--star-warm) 96%, transparent 100%) repeat,
-    radial-gradient(2.2px 2.2px at 36% 18%, var(--star-white) 96%, transparent 100%) repeat,
-    radial-gradient(1.8px 1.8px at 62% 26%, var(--star-cool) 96%, transparent 100%) repeat,
-    radial-gradient(1.4px 1.4px at 82% 12%, var(--star-white) 96%, transparent 100%) repeat,
-    radial-gradient(1.2px 1.2px at 48% 36%, var(--star-warm) 96%, transparent 100%) repeat,
+    radial-gradient(3px 3px at 8% 12%, var(--star-warm) 96%, transparent 100%) repeat,
+    radial-gradient(2.6px 2.6px at 22% 24%, var(--star-white) 96%, transparent 100%) repeat,
+    radial-gradient(2.2px 2.2px at 38% 18%, var(--star-cool) 96%, transparent 100%) repeat,
+    radial-gradient(1.8px 1.8px at 58% 26%, var(--star-white) 96%, transparent 100%) repeat,
+    radial-gradient(1.6px 1.6px at 76% 14%, var(--star-warm) 96%, transparent 100%) repeat,
+    radial-gradient(1.4px 1.4px at 88% 22%, var(--star-white) 96%, transparent 100%) repeat,
+    radial-gradient(1.2px 1.2px at 44% 36%, var(--star-warm) 96%, transparent 100%) repeat,
     radial-gradient(1.2px 1.2px at 70% 44%, var(--star-cool) 96%, transparent 100%) repeat;
-  background-size: 280px 280px, 340px 340px, 420px 420px, 520px 520px, 260px 260px, 360px 360px;
+  background-size: 240px 240px, 300px 300px, 360px 360px, 420px 420px, 520px 520px, 580px 580px, 260px 260px, 340px 340px;
 
   animation: twinkleA 10.5s ease-in-out infinite alternate;
-  opacity:.95;
-  filter: contrast(108%) brightness(104%);
+  opacity:.98;
+  filter: contrast(110%) brightness(104%);
 }
 
 /* gentle aurora highlights */
@@ -79,8 +81,8 @@ body{
   content:"";
   position:absolute; inset:0;
   background:
-    radial-gradient(115% 80% at 50% -25%, var(--aurora-1) 0%, rgba(255,255,255,0) 62%),
-    radial-gradient(95% 65% at 24% -12%, var(--aurora-2) 0%, rgba(255,255,255,0) 58%);
+    radial-gradient(115% 82% at 50% -28%, var(--aurora-1) 0%, rgba(255,255,255,0) 64%),
+    radial-gradient(95% 68% at 24% -16%, var(--aurora-2) 0%, rgba(255,255,255,0) 60%);
   mix-blend-mode:screen;
   opacity:.92;
 }
@@ -90,25 +92,25 @@ body{
   content:"";
   position:absolute; inset:0;
   background:
-    radial-gradient(3px 3px at 70% 24%, var(--star-white) 98%, transparent 100%) repeat,
-    radial-gradient(2.6px 2.6px at 30% 60%, var(--star-warm) 98%, transparent 100%) repeat;
-  background-size: 540px 540px, 620px 620px;
+    radial-gradient(3.4px 3.4px at 72% 18%, var(--star-white) 98%, transparent 100%) repeat,
+    radial-gradient(2.8px 2.8px at 30% 52%, var(--star-warm) 98%, transparent 100%) repeat;
+  background-size: 520px 520px, 600px 600px;
   animation: twinkleB 14s ease-in-out infinite alternate;
-  opacity:.6;
+  opacity:.65;
 }
 
 /* ===== Logo + headings ===== */
 .logo{
   width:120px; margin:0 auto 22px; display:block;
-  animation:float 6.8s ease-in-out infinite; /* +30% amplitude vs before */
+  animation:float 7.8s ease-in-out infinite; /* +15% amplitude vs previous */
 }
-h1, h2, h3{ font-family:'Plus Jakarta Sans','Inter',sans-serif; }
+h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif; letter-spacing:0.2px; }
 .hero h1{
-  font-size:3.2rem; font-weight:800; margin:10px 0 6px;
+  font-size:3.25rem; font-weight:800; margin:10px 0 6px;
   background:linear-gradient(90deg,var(--brand),var(--brand-2));
   -webkit-background-clip:text; -webkit-text-fill-color:transparent;
 }
-.tagline{ font-size:1.18rem; color:#333d; margin:0 0 28px; }
+.tagline{ font-size:1.14rem; color:#333d; margin:0 0 28px; }
 
 /* ===== Buttons ===== */
 .hero-buttons{display:flex; justify-content:center; gap:16px;}
@@ -119,69 +121,70 @@ h1, h2, h3{ font-family:'Plus Jakarta Sans','Inter',sans-serif; }
   will-change:transform;
 }
 .btn.primary{background:var(--brand); color:#fff; box-shadow:0 6px 14px rgba(42,77,155,.25)}
-.btn.primary:hover{transform:translateY(-1px) scale(1.04); background:#24407f; box-shadow:0 10px 20px rgba(42,77,155,.28)}
+.btn.primary:hover{transform:translateY(-1px) scale(1.05); background:#24407f; box-shadow:0 10px 20px rgba(42,77,155,.28)}
 .btn.primary:active{transform:scale(0.98)}
 .btn.secondary{border-color:var(--brand); color:var(--brand); background:transparent}
-.btn.secondary:hover{background:var(--brand); color:#fff; transform:translateY(-1px) scale(1.04)}
+.btn.secondary:hover{background:var(--brand); color:#fff; transform:translateY(-1px) scale(1.05)}
 .btn.small{padding:10px 16px; border-radius:10px}
 
 /* ===== Purpose ===== */
-.purpose{padding:90px 20px 70px;}
-.purpose h2{ font-size:2.2rem; margin:0 0 28px; font-weight:800; }
+.purpose{padding:96px 20px 72px;}
+.purpose h2{ font-size:2.3rem; margin:0 0 28px; font-weight:800; }
 .purpose-grid{
   display:grid; gap:18px;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   max-width:1100px; margin:0 auto;
 }
 .purpose-card{
-  background:#fff; border:1px solid #eceff6; border-radius:16px; text-align:left;
+  background:#fff; border:1px solid #eceff6; border-radius:18px; text-align:left;
   padding:22px 22px 18px; box-shadow:0 6px 14px rgba(0,0,0,.06);
   transform:translateY(16px); opacity:0;
   transition:.5s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, transform .25s ease, border-color .25s ease, background .25s ease;
 }
-.purpose-card h3{ margin:4px 0 10px; font-size:1.25rem; font-weight:800; }
+.purpose-card h3{ margin:4px 0 10px; font-size:1.28rem; font-weight:800; }
 .purpose-card p{ color:var(--muted); margin:0 0 10px; }
 .bullets{ padding-left:18px; margin:8px 0 0; }
 .bullets li{ margin:6px 0; color:#333; }
 .purpose-card:hover{
-  transform:translateY(0) scale(1.015);
+  transform:translateY(0) scale(1.018);
   border-color:#d7e1fb;
   background:linear-gradient(180deg,#ffffff 0%, #f3f6ff 100%);
   box-shadow:0 12px 26px rgba(42,77,155,.12);
 }
 .reveal.in{opacity:1; transform:none}
-.reveal.out{opacity:.55; filter:saturate(.96);}
 
 /* ===== Product (BookBuddy) ===== */
-.product{ padding:44px 20px 12px; }
+.product{ padding:48px 20px 16px; }
 .product-frame{
-  position:relative; margin:18px auto 0;
+  position:relative; margin:20px auto 0;
   width:min(980px,92vw); aspect-ratio:16/9;
-  transform:rotate(-5deg); border-radius:18px; overflow:hidden;
+  transform:rotate(-6.5deg); transform-origin:center 60%;
+  border-radius:20px; overflow:hidden;
   box-shadow:0 18px 50px rgba(0,0,0,.12), 0 6px 18px rgba(0,0,0,.08);
   background:#0b1022;
+  will-change:transform;
 }
 .scroll-container{width:100%; height:100%; overflow:hidden; overscroll-behavior:contain;}
 .product-frame:hover .scroll-container{ overflow-y:auto; }
 @media (hover:none){ .scroll-container{ overflow-y:auto; } }
 .scroll-container img{ width:100%; display:block; }
 .slider-caption{
-  position:absolute; bottom:16px; left:16px; right:16px;
-  color:#fff; text-align:left; font-family:'Plus Jakarta Sans',sans-serif;
+  position:absolute; bottom:18px; left:18px; right:18px;
+  color:#fff; text-align:left; font-family:'Outfit',sans-serif;
 }
 .caption-glass{
-  display:inline-block; padding:10px 14px; border-radius:12px;
-  background:rgba(10,14,30,.45);
+  display:inline-block; padding:12px 16px; border-radius:14px;
+  background:rgba(10,14,30,.5);
   -webkit-backdrop-filter:saturate(120%) blur(8px);
   backdrop-filter:saturate(120%) blur(8px);
   box-shadow:0 6px 16px rgba(0,0,0,.25);
 }
 .slider-caption h3{font-size:1.2rem; margin:0 0 4px; font-weight:800;}
-.slider-caption p{font-size:.98rem; opacity:.95; margin:0;}
+.slider-caption p{font-size:.98rem; opacity:.96; margin:0;}
 
 /* ===== Join Us ===== */
-.join{ padding:90px 20px; background:transparent; }
-.join h2{ font-size:2.2rem; margin:0 0 8px; font-weight:800; }
+.join{ padding:96px 20px; background:transparent; }
+.join h2{ font-size:2.3rem; margin:0 0 8px; font-weight:800; }
 .join-sub{ color:#5a5a5a; margin:0 0 28px; }
 .cards{
   display:grid; gap:18px;
@@ -189,10 +192,10 @@ h1, h2, h3{ font-family:'Plus Jakarta Sans','Inter',sans-serif; }
   max-width:1000px; margin:0 auto;
 }
 .card{
-  background:#fff; border-radius:16px; padding:22px; text-align:left;
+  background:#fff; border-radius:18px; padding:22px; text-align:left;
   box-shadow:0 6px 14px rgba(0,0,0,.06); border:1px solid #e9edf6;
   transform:translateY(14px); opacity:0;
-  display:flex; flex-direction:column; /* equal heights + aligned buttons */
+  display:flex; flex-direction:column;
   transition:.5s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, transform .25s ease, border-color .25s ease, background .25s ease;
 }
 .card h3{margin:0 0 8px; font-weight:800}
@@ -201,23 +204,22 @@ h1, h2, h3{ font-family:'Plus Jakarta Sans','Inter',sans-serif; }
 .card .mini li{margin:6px 0}
 .equal-btn{
   align-self:flex-start;
-  margin-top:auto;       /* pushes buttons to bottom equally */
-  min-width:160px;       /* symmetric width */
+  margin-top:auto;
+  min-width:168px;
   text-align:center;
 }
 .card:hover{
-  transform:translateY(0) scale(1.015);
+  transform:translateY(0) scale(1.018);
   border-color:#d7e1fb;
   background:linear-gradient(180deg,#ffffff 0%, #f3f6ff 100%);
   box-shadow:0 12px 26px rgba(42,77,155,.12);
 }
 .card.in{opacity:1; transform:none}
-.card.out{opacity:.55; filter:saturate(.96);}
 
 /* ===== Footer ===== */
 footer{
   background:linear-gradient(180deg, rgba(255,255,255,0) 0%, #f0f2f8 100%);
-  padding:38px 20px; border-top:1px solid #e9ecf3;
+  padding:40px 20px; border-top:1px solid #e9ecf3;
 }
 .footer-logo{width:60px; margin:0 auto 10px; display:block}
 footer p{color:#555; margin:6px 0}
@@ -228,16 +230,15 @@ footer p{color:#555; margin:6px 0}
 .seq-init{ opacity:0; transform:translateY(12px); transition:opacity .55s ease var(--d,0ms), transform .55s ease var(--d,0ms); }
 .seq-init.in{ opacity:1; transform:none; }
 
-/* Reveal blocks */
+/* Reveal blocks (add-once; no removal to avoid jitter at page end) */
 .reveal-init{ opacity:0; transform:translateY(16px); }
 .reveal-init.in{ opacity:1; transform:none; transition:.65s cubic-bezier(.2,.8,.2,1); }
-.reveal-init.out{ opacity:.55; transition:opacity .6s ease; }
 
 /* ===== Animations ===== */
 @keyframes fadeIn{from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:none}}
-@keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)}} /* +30% */
-@keyframes twinkleA { from { opacity:.68 } to { opacity: .98 } }
-@keyframes twinkleB { from { opacity:.42 } to { opacity: .72 } }
+@keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)}} /* +15% */
+@keyframes twinkleA { from { opacity:.72 } to { opacity: 1 } }
+@keyframes twinkleB { from { opacity:.46 } to { opacity: .78 } }
 
 @media (prefers-reduced-motion: reduce){
   .sky, .sky::before, .sky::after{ animation:none !important; }
