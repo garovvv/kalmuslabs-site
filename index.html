@@ -2,16 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kalmus Labs</title>
 
   <!-- Favicon -->
   <link rel="icon" href="favicon.ico">
   <link rel="icon" type="image/png" href="logo.png" sizes="any">
 
-  <!-- Fonts (Outfit + Manrope, с предзагрузкой) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
@@ -76,7 +74,7 @@
     </div>
   </section>
 
-  <!-- BookBuddy Preview (между Purpose и Join Us) -->
+  <!-- BookBuddy Preview -->
   <section class="product seam-both">
     <div class="product-wrap reveal">
       <div class="product-perspective">
@@ -146,7 +144,7 @@
 
   <!-- Sequencing + Reveal -->
   <script>
-    // последовательная загрузка сверху вниз — вернул
+    // последовательная загрузка сверху вниз (вернул анимацию)
     const seqEls = [...document.querySelectorAll('.seq')];
     seqEls.forEach((el, i) => {
       el.style.setProperty('--d', `${i * 110}ms`);
@@ -154,11 +152,10 @@
       requestAnimationFrame(() => el.classList.add('in'));
     });
 
-    // reveal с плавным входом/выходом, без дрожи
+    // reveal: добавляем ОДИН РАЗ (без remove) — меньше мерцаний на телефонах
     const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => e.isIntersecting ? e.target.classList.add('in')
-                                            : e.target.classList.remove('in'));
-    }, { threshold: [0, 0.18, 0.35], rootMargin: '0px 0px -18% 0px' });
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.18, rootMargin: '0px 0px -14% 0px' });
 
     document.querySelectorAll('.reveal').forEach(el => {
       el.classList.add('reveal-init');
