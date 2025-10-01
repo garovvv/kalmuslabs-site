@@ -9,14 +9,14 @@
   <link rel="icon" href="favicon.ico">
   <link rel="icon" type="image/png" href="logo.png" sizes="any">
 
-  <!-- Fonts (modern) -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <!-- Hero -->
-  <section class="hero">
+  <section class="hero feather-bottom">
     <div class="sky" aria-hidden="true"></div>
 
     <img src="logo_main.png" alt="Kalmus Labs Logo" class="logo seq" />
@@ -30,7 +30,7 @@
   </section>
 
   <!-- Purpose -->
-  <section class="purpose section-blend" id="purpose">
+  <section class="purpose feather-both" id="purpose">
     <h2 class="seq">Purpose</h2>
     <div class="purpose-grid">
       <article class="purpose-card reveal">
@@ -74,26 +74,29 @@
     </div>
   </section>
 
-  <!-- BookBuddy Preview (between Purpose and Join Us) -->
-  <section class="product section-blend">
-    <!-- ВАЖНО: reveal на wrapper, а наклон у .product-frame -->
+  <!-- BookBuddy Preview -->
+  <section class="product feather-both">
+    <!-- reveal на wrapper, 3D-наклон внутри -->
     <div class="product-wrap reveal">
-      <div class="product-frame">
-        <div class="scroll-container">
-          <img src="BD.png" alt="BookBuddy preview">
-        </div>
-        <div class="slider-caption">
-          <div class="caption-glass">
-            <h3>BookBuddy</h3>
-            <p>Turn any document into a personal learning session.</p>
+      <div class="product-perspective">
+        <div class="product-frame">
+          <div class="scroll-container">
+            <img src="BD.png" alt="BookBuddy preview">
+          </div>
+          <div class="slider-caption">
+            <div class="caption-glass">
+              <h3>BookBuddy</h3>
+              <p>Turn any document into a personal learning session.</p>
+            </div>
           </div>
         </div>
+        <div class="product-shadow" aria-hidden="true"></div>
       </div>
     </div>
   </section>
 
   <!-- Join Us -->
-  <section id="join" class="join section-blend">
+  <section id="join" class="join feather-top">
     <h2 class="seq">Join Us</h2>
     <p class="join-sub seq">Build the future with us - not as a cog, but as an owner.</p>
 
@@ -142,7 +145,7 @@
 
   <!-- Sequencing + Reveal -->
   <script>
-    // initial sequence (top -> down)
+    // последовательная загрузка сверху вниз
     const seqEls = [...document.querySelectorAll('.seq')];
     seqEls.forEach((el, i) => {
       el.style.setProperty('--d', `${i * 110}ms`);
@@ -150,17 +153,23 @@
       requestAnimationFrame(() => el.classList.add('in'));
     });
 
-    // scroll reveal (add once to avoid jitter at page end)
+    // reveal с мягким скрытием (без дрожи на нижней границе)
     const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-    }, { threshold: 0.16, rootMargin: '0px 0px -12% 0px' });
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+        } else {
+          e.target.classList.remove('in');
+        }
+      });
+    }, { threshold: [0, 0.15, 0.35], rootMargin: '0px 0px -18% 0px' });
 
     document.querySelectorAll('.reveal').forEach(el => {
       el.classList.add('reveal-init');
       io.observe(el);
     });
 
-    // Parallax for sky
+    // Параллакс неба
     const sky = document.querySelector('.sky');
     addEventListener('scroll', () => {
       const y = Math.min(170, window.scrollY * 0.12);
