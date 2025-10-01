@@ -26,16 +26,16 @@
       <a href="#join" class="btn secondary">Join us</a>
     </div>
 
-    <!-- Linear-style tilted preview -->
+    <!-- BookBuddy Preview -->
     <div class="product-frame">
-  <div class="scroll-container">
-    <img src="BD.png" alt="BookBuddy preview">
-  </div>
-  <div class="slider-caption">
-    <h3>BookBuddy</h3>
-    <p>Turn any document into a personal learning session.</p>
-  </div>
-</div>
+      <div class="scroll-container">
+        <img src="BD.png" alt="BookBuddy preview">
+      </div>
+      <div class="slider-caption">
+        <h3>BookBuddy</h3>
+        <p>Turn any document into a personal learning session.</p>
+      </div>
+    </div>
   </section>
 
   <!-- Purpose (Problem → Belief → Solution) -->
@@ -143,6 +143,15 @@
     }, { threshold: 0.18 });
 
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+
+  <!-- Parallax effect for sky -->
+  <script>
+    const sky = document.querySelector('.sky');
+    addEventListener('scroll', () => {
+      const y = Math.min(120, window.scrollY * 0.12);
+      sky.style.transform = `translateY(${ -y }px)`;
+    }, {passive:true});
   </script>
 </body>
 </html>
