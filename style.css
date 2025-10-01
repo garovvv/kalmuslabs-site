@@ -1,7 +1,4 @@
-/* ===== Google Fonts (без правок index.html) ===== */
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Space+Grotesk:wght@600;700&display=swap");
-
-/* ===== Base (dawn sky palette) ===== */
+/* ===== Palette ===== */
 :root{
   --ink:#0f1320;
   --muted:#525a66;
@@ -10,8 +7,8 @@
   --brand:#2A4D9B;
   --brand-2:#6b8ce3;
 
-  /* global morning gradient */
-  --dawn-0:#f5f7fb;
+  /* dawn sky */
+  --dawn-0:#f5f7fb; /* pearl */
   --dawn-1:#e3eaf6;
   --dawn-2:#cbd6ee;
   --dawn-3:#b5c5e4;
@@ -30,27 +27,64 @@
 *{box-sizing:border-box}
 html,body{height:100%}
 
-/* --- строгая типографика --- */
-html{ font-family:'Manrope', system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif !important; }
+/* ===== Typography ===== */
+html{ font-family:'Manrope', system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif; }
 body{
   margin:0;
   color:var(--ink);
-  background:linear-gradient(180deg, var(--dawn-3) 0%, var(--dawn-2) 30%, var(--dawn-1) 65%, var(--dawn-0) 100%);
   text-align:center;
+  background: var(--dawn-0); /* базовый перламутр под всеми секциями */
   scroll-behavior:smooth;
 }
 
-/* ===== Hero ===== */
+h1,h2,h3{
+  font-family:'Space Grotesk','Manrope',sans-serif;
+  letter-spacing:.2px;
+}
+
+/* ===== Section backgrounds (каждый блок со своим градиентом) ===== */
 .hero{
   position:relative;
   padding:100px 20px 80px;
   overflow:hidden;
-  background:transparent;
+  background:linear-gradient(180deg, var(--dawn-3) 0%, var(--dawn-2) 55%, var(--dawn-1) 100%);
   animation:fadeIn 1.2s ease;
 }
-.hero > :not(.sky){ position:relative; z-index:1; }
+.purpose{
+  padding:92px 20px 68px;
+  background:linear-gradient(180deg, var(--dawn-1) 0%, #ffffff 100%);
+}
+.product{
+  padding:60px 20px 96px;
+  background:linear-gradient(180deg, #ffffff 0%, var(--dawn-1) 100%);
+}
+.join{
+  padding:96px 20px 0px; /* footer внутри — не запускаем новый градиент */
+  background:linear-gradient(180deg, var(--dawn-1) 0%, var(--dawn-0) 100%);
+}
 
-/* ===== Sky ===== */
+/* ===== Узкое размытие-«шов» на стыках ===== */
+.seam-top, .seam-bottom, .seam-both{ position:relative; z-index:0; }
+.seam-top::after,
+.seam-bottom::after,
+.seam-both::before,
+.seam-both::after{
+  content:"";
+  position:absolute; left:0; right:0; height:24px; pointer-events:none; z-index:2;
+  background: rgba(255,255,255,0.001); /* включает backdrop-слой */
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  /* узкая перьевая маска — размазывает только тонкую полоску */
+  -webkit-mask-image:linear-gradient(to bottom, rgba(0,0,0,0), #000 38%, #000 62%, rgba(0,0,0,0));
+  mask-image:linear-gradient(to bottom, rgba(0,0,0,0), #000 38%, #000 62%, rgba(0,0,0,0));
+}
+.seam-top::after{ top:-12px; }
+.seam-bottom::after{ bottom:-12px; }
+.seam-both::before{ top:-12px; }
+.seam-both::after{ bottom:-12px; }
+
+/* ===== Sky (звезды + сияние) ===== */
+.hero > :not(.sky){ position:relative; z-index:1; }
 .sky{
   position:absolute; inset:0;
   height:72vh;
@@ -89,8 +123,7 @@ body{
   opacity:.68;
 }
 
-/* ===== Typography ===== */
-h1, h2, h3{ font-family:'Space Grotesk','Manrope',sans-serif !important; letter-spacing:0.2px; }
+/* ===== Hero content ===== */
 .hero h1{
   font-size:3rem; font-weight:700; margin:12px 0 6px;
   background:linear-gradient(90deg,var(--brand),var(--brand-2));
@@ -98,13 +131,13 @@ h1, h2, h3{ font-family:'Space Grotesk','Manrope',sans-serif !important; letter-
 }
 .tagline{ font-size:1.08rem; color:#333d; margin:0 0 26px; }
 
-/* ===== Logo (мягкое «плавание») ===== */
+/* Logo (мягкое «плавание») */
 .logo{
-  width:110px; margin:0 auto 20px; display:block;
+  width:108px; margin:0 auto 20px; display:block;
   animation:float 8s ease-in-out infinite;
 }
 
-/* ===== Buttons ===== */
+/* Buttons */
 .hero-buttons{display:flex; justify-content:center; gap:16px;}
 .btn{
   padding:12px 22px; border-radius:12px; font-weight:800;
@@ -119,28 +152,7 @@ h1, h2, h3{ font-family:'Space Grotesk','Manrope',sans-serif !important; letter-
 .btn.secondary:hover{background:var(--brand); color:#fff; transform:translateY(-1px) scale(1.05)}
 .btn.small{padding:10px 16px; border-radius:10px}
 
-/* ===== Узкое размытие-«шов» на стыках ===== */
-/* работает во всех современных браузерах; важен НЕпрозрачный (минимально) фон */
-.seam-top, .seam-bottom, .seam-both{ position:relative; z-index:0; }
-.seam-top::after,
-.seam-bottom::after,
-.seam-both::before,
-.seam-both::after{
-  content:""; position:absolute; left:0; right:0; height:26px; pointer-events:none; z-index:2;
-  background: rgba(255,255,255,.001);              /* включает backdrop-слой */
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  /* узкая перьевая маска — размазывает только тонкую полоску */
-  -webkit-mask-image:linear-gradient(to bottom, rgba(0,0,0,0), #000 36%, #000 64%, rgba(0,0,0,0));
-  mask-image:linear-gradient(to bottom, rgba(0,0,0,0), #000 36%, #000 64%, rgba(0,0,0,0));
-}
-.seam-top::after{ top:-13px; }
-.seam-bottom::after{ bottom:-13px; }
-.seam-both::before{ top:-13px; }
-.seam-both::after{ bottom:-13px; }
-
 /* ===== Purpose ===== */
-.purpose{padding:92px 20px 68px; background:transparent;}
 .purpose h2{ font-size:2.2rem; margin:0 0 26px; font-weight:700; }
 .purpose-grid{
   display:grid; gap:18px;
@@ -168,7 +180,6 @@ h1, h2, h3{ font-family:'Space Grotesk','Manrope',sans-serif !important; letter-
 .reveal-init.in{ opacity:1; transform:none; transition:opacity .65s cubic-bezier(.2,.8,.2,1), transform .65s cubic-bezier(.2,.8,.2,1); }
 
 /* ===== Product (BookBuddy) ===== */
-.product{ padding:60px 20px 96px; background:transparent; }
 .product-wrap{ max-width:1200px; margin:0 auto; }
 .product-perspective{
   position:relative;
@@ -194,7 +205,7 @@ h1, h2, h3{ font-family:'Space Grotesk','Manrope',sans-serif !important; letter-
 .scroll-container img{ width:100%; display:block; }
 .slider-caption{
   position:absolute; bottom:18px; left:18px; right:18px;
-  color:#fff; text-align:left; font-family:'Space Grotesk',sans-serif;
+  color:#fff; text-align:left;
 }
 .caption-glass{
   display:inline-block; padding:12px 16px; border-radius:14px;
@@ -207,20 +218,19 @@ h1, h2, h3{ font-family:'Space Grotesk','Manrope',sans-serif !important; letter-
 .slider-caption h3{font-size:1.2rem; margin:0 0 4px; font-weight:700;}
 .slider-caption p{font-size:.98rem; opacity:.96; margin:0;}
 
-/* Мобильные фиксы против «мельтешения» и большой подписи */
+/* Мобильные фиксы */
 @media (max-width: 768px){
   .logo{ width:96px; }
   .hero{ padding-top:88px; }
   .product{ padding-bottom: 110px; }
-  .product-frame{ transform: rotateZ(-4.5deg); } /* убираем rotateX — меньше перерисовок */
+  .product-frame{ transform: rotateZ(-4.5deg); } /* меньше затрат на перерисовку */
   .slider-caption{ bottom:10px; left:10px; right:auto; }
   .caption-glass{ padding:8px 10px; max-width:70%; }
   .slider-caption h3{ font-size:1rem; }
   .slider-caption p{ font-size:.88rem; }
 }
 
-/* ===== Join Us ===== */
-.join{ padding:96px 20px; background:transparent; }
+/* ===== Join Us + Footer (footer — часть последнего градиента) ===== */
 .join h2{ font-size:2.2rem; margin:0 0 8px; font-weight:700; }
 .join-sub{ color:#5a5a5a; margin:0 0 28px; }
 .cards{
@@ -254,17 +264,19 @@ h1, h2, h3{ font-family:'Space Grotesk','Manrope',sans-serif !important; letter-
 }
 .card.in{opacity:1; transform:none}
 
-/* ===== Footer ===== */
+/* Footer (внутри .join — без собственного градиента) */
 footer{
-  background:linear-gradient(180deg, rgba(255,255,255,0) 0%, #f0f2f8 100%);
-  padding:40px 20px; border-top:1px solid #e9ecf3;
+  margin-top:48px;
+  padding:40px 20px 46px;
+  border-top:1px solid #e9ecf3;
+  background:transparent;
 }
 .footer-logo{width:60px; margin:0 auto 10px; display:block}
 footer p{color:#555; margin:6px 0}
 .linkedin{color:var(--brand); text-decoration:none; font-weight:700}
 .linkedin:hover{text-decoration:underline}
 
-/* ===== Sequencing on load ===== */
+/* ===== Sequencing ===== */
 .seq-init{ opacity:0; transform:translateY(12px); transition:opacity .55s ease var(--d,0ms), transform .55s ease var(--d,0ms); }
 .seq-init.in{ opacity:1; transform:none; }
 
