@@ -18,6 +18,8 @@
   --aurora-2:rgba(220,230,255,.15); /* лёгкое серебристо-фиолетовое */
 }
 
+*{box-sizing:border-box}
+html,body{height:100%}
 body{
   margin:0;
   font-family:'Roboto',system-ui,-apple-system,Segoe UI,Helvetica,Arial,sans-serif;
@@ -37,57 +39,144 @@ body{
   animation:fadeIn 1.2s ease;
 }
 
-/* Sky (stars + glow) */
-.sky{
-  position:absolute; inset:0;
-  height:100vh;
-  background: red; /* Весь блок неба будет красным */
-  z-index: 1000;   /* Подними наверх, чтобы всё перекрывал */
-  pointer-events:none; will-change:transform;
-  mix-blend-mode:screen;
-
-  /* маска для мягкого затухания */
-  -webkit-mask-image:linear-gradient(#000 0%, #000 70%, rgba(0,0,0,0) 100%);
-  mask-image:linear-gradient(#000 0%, #000 70%, rgba(0,0,0,0) 100%);
-
-  /* фон-звезды */
-  background:
-    radial-gradient(3px 3px at 10% 20%, #ffffff 100%, transparent 101%) repeat,
-    radial-gradient(3px 3px at 30% 50%, #fffdc1 100%, transparent 101%) repeat,
-    radial-gradient(3px 3px at 70% 40%, #d6e0ff 100%, transparent 101%) repeat,
-    radial-gradient(3px 3px at 85% 15%, #c7d4ff 100%, transparent 101%) repeat,
-    radial-gradient(3px 3px at 50% 70%, #ffffff 100%, transparent 101%) repeat;
-  background-size: 200px 200px, 250px 250px, 300px 300px, 350px 350px, 400px 400px;
-
-  animation: twinkleA 10s ease-in-out infinite alternate;
-  opacity:.8;
-  filter: contrast(108%) brightness(104%);
+.logo{
+  width:120px; margin:0 auto 22px; display:block;
+  animation:float 5s ease-in-out infinite;
 }
 
-/* Aurora glows */
+.hero h1{
+  font-family:'Inter',sans-serif;
+  font-size:3.2rem; font-weight:800; margin:10px 0 6px;
+  background:linear-gradient(90deg,var(--brand),var(--brand-2));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+}
+
+.tagline{ font-size:1.22rem; color:#3a3a3a; margin:0 0 28px; }
+.hero-buttons{display:flex; justify-content:center; gap:16px;}
+
+/* Buttons */
+.btn{
+  padding:12px 22px; border-radius:10px; font-weight:700;
+  text-decoration:none; transition:.25s ease; display:inline-block;
+  border:2px solid transparent;
+}
+.btn.primary{background:var(--brand); color:#fff;}
+.btn.primary:hover{transform:translateY(-1px); background:#1e3670;}
+.btn.secondary{border-color:var(--brand); color:var(--brand); background:transparent;}
+.btn.secondary:hover{background:var(--brand); color:#fff}
+
+/* ===== Scrollable BookBuddy frame ===== */
+.product-frame{
+  position:relative; margin:46px auto 0;
+  width:min(980px,92vw); aspect-ratio:16/9;
+  transform:rotate(-4.5deg); border-radius:18px; overflow:hidden;
+  box-shadow:0 18px 50px rgba(0,0,0,.12), 0 6px 18px rgba(0,0,0,.08);
+  background:#0b1022;
+}
+.scroll-container{width:100%; height:100%; overflow:hidden; overscroll-behavior:contain;}
+.product-frame:hover .scroll-container{ overflow-y:auto; }
+@media (hover:none){ .scroll-container{ overflow-y:auto; } }
+.scroll-container img{ width:100%; display:block; }
+.slider-caption{
+  position:absolute; bottom:20px; left:28px;
+  color:#fff; text-align:left; font-family:'Inter',sans-serif;
+  text-shadow:0 3px 6px rgba(0,0,0,.5);
+}
+.slider-caption h3{font-size:1.6rem; margin:0 0 4px; font-weight:700;}
+.slider-caption p{font-size:1rem; opacity:.9; margin:0;}
+
+/* ===== Purpose ===== */
+.purpose{padding:90px 20px 70px;}
+.purpose h2{ font-family:'Inter',sans-serif; font-size:2.2rem; margin:0 0 28px; }
+.purpose-grid{
+  display:grid; gap:18px;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  max-width:1100px; margin:0 auto;
+}
+.purpose-card{
+  background:#fff; border:1px solid #eceff6; border-radius:16px; text-align:left;
+  padding:22px 22px 18px; box-shadow:0 6px 14px rgba(0,0,0,.06);
+  transform:translateY(16px); opacity:0; transition:.6s cubic-bezier(.2,.8,.2,1);
+}
+.purpose-card h3{ font-family:'Inter',sans-serif; margin:4px 0 10px; font-size:1.25rem; }
+.purpose-card p{ color:var(--muted); margin:0 0 10px; }
+.bullets{ padding-left:18px; margin:8px 0 0; }
+.bullets li{ margin:6px 0; color:#333; }
+.reveal.in{opacity:1; transform:none}
+
+/* ===== Join Us ===== */
+.join{ padding:90px 20px; background:#f7f9fc; }
+.join h2{ font-family:'Inter',sans-serif; font-size:2.2rem; margin:0 0 8px; }
+.join-sub{ color:#5a5a5a; margin:0 0 28px; }
+.cards{
+  display:grid; gap:18px;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  max-width:1000px; margin:0 auto;
+}
+.card{
+  background:#fff; border-radius:16px; padding:22px; text-align:left;
+  box-shadow:0 6px 14px rgba(0,0,0,.06); border:1px solid #e9edf6;
+  transform:translateY(14px); opacity:0; transition:.6s cubic-bezier(.2,.8,.2,1);
+}
+.card h3{font-family:'Inter',sans-serif; margin:0 0 8px}
+.card p{color:#444; margin:0 0 10px}
+.card .mini{padding-left:18px; margin:8px 0 14px}
+.card .mini li{margin:6px 0}
+.card.in{opacity:1; transform:none}
+
+/* ===== Footer ===== */
+footer{
+  background:linear-gradient(180deg,#ffffff 0%,#f0f2f8 100%);
+  padding:38px 20px; border-top:1px solid #e9ecf3;
+}
+.footer-logo{width:60px; margin:0 auto 10px; display:block}
+footer p{color:#555; margin:6px 0}
+.linkedin{color:var(--brand); text-decoration:none; font-weight:700}
+.linkedin:hover{text-decoration:underline}
+
+/* ===== Sky (stars + glow) ===== */
+.sky{
+  position:absolute; inset:0;
+  height:64vh;
+  pointer-events:none; will-change:transform;
+
+  background:
+    radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.9) 98%, transparent 100%) repeat,
+    radial-gradient(1.5px 1.5px at 60% 20%, rgba(255,255,255,0.7) 98%, transparent 100%) repeat,
+    radial-gradient(1.8px 1.8px at 40% 50%, rgba(255,255,255,0.8) 98%, transparent 100%) repeat;
+  background-size: 300px 300px, 400px 400px, 500px 500px;
+
+  animation: twinkleA 12s ease-in-out infinite alternate;
+  opacity:.85;
+}
+
 .sky::before{
   content:"";
   position:absolute; inset:0;
   background:
-    radial-gradient(100% 70% at 50% -20%, var(--aurora-1) 0%, rgba(255,255,255,0) 65%),
-    radial-gradient(80% 60% at 25% -10%, var(--aurora-2) 0%, rgba(255,255,255,0) 55%);
+    radial-gradient(90% 70% at 50% -10%, var(--aurora-1) 0%, transparent 70%),
+    radial-gradient(80% 60% at 25% -15%, var(--aurora-2) 0%, transparent 60%);
   mix-blend-mode:screen;
-  opacity:.85;
 }
 
-/* редкие крупные звёзды поверх */
 .sky::after{
   content:"";
   position:absolute; inset:0;
   background:
-    radial-gradient(2px 2px at 30% 25%, rgba(240,245,255,.6) 47%, transparent 48%) repeat,
-    radial-gradient(1.8px 1.8px at 65% 35%, rgba(225,235,255,.55) 47%, transparent 48%) repeat;
-  background-size: 500px 500px, 650px 650px;
-  animation: twinkleB 14s ease-in-out infinite alternate;
+    radial-gradient(2.5px 2.5px at 70% 25%, rgba(255,255,255,0.8) 98%, transparent 100%) repeat,
+    radial-gradient(2px 2px at 30% 60%, rgba(240,245,255,0.7) 98%, transparent 100%) repeat;
+  background-size: 600px 600px, 450px 450px;
+  animation: twinkleB 15s ease-in-out infinite alternate;
   opacity:.5;
 }
 
-/* Animations */
+/* ===== Animations ===== */
 @keyframes fadeIn{from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:none}}
+@keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)}}
 @keyframes twinkleA { from { opacity:.65 } to { opacity: .9 } }
 @keyframes twinkleB { from { opacity:.35 } to { opacity: .6 } }
+
+@media (prefers-reduced-motion: reduce){
+  .sky, .sky::before, .sky::after{ animation:none !important; }
+  .logo{ animation:none; }
+}
