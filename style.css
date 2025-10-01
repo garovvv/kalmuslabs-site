@@ -1,3 +1,11 @@
+/* ===== Fonts ===== */
+@font-face {
+  font-family: 'Monroe';
+  src: url('Monroe.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+}
+
 /* ===== Palette ===== */
 :root{
   --ink:#0f1320;
@@ -28,21 +36,21 @@
 html,body{height:100%}
 
 /* ===== Typography ===== */
-html{ font-family:'Inter', sans-serif; }
+html{ font-family:'Plus Jakarta Sans', sans-serif; }
 body{
   margin:0;
   color:var(--ink);
   text-align:center;
-  background: var(--dawn-0); /* базовый перламутр под всеми секциями */
+  background: var(--dawn-0);
   scroll-behavior:smooth;
 }
 
 h1,h2,h3{
-  font-family:'Space Grotesk','Inter',sans-serif;
+  font-family:'Monroe','Plus Jakarta Sans',sans-serif;
   letter-spacing:.2px;
 }
 
-/* ===== Section backgrounds (каждый блок со своим градиентом) ===== */
+/* ===== Section backgrounds ===== */
 .hero{
   position:relative;
   padding:100px 20px 80px;
@@ -59,11 +67,11 @@ h1,h2,h3{
   background:linear-gradient(180deg, #ffffff 0%, var(--dawn-1) 100%);
 }
 .join{
-  padding:96px 20px 0px; /* footer внутри — не запускаем новый градиент */
+  padding:96px 20px 0px;
   background:linear-gradient(180deg, var(--dawn-1) 0%, var(--dawn-0) 100%);
 }
 
-/* ===== Узкое размытие-«шов» на стыках ===== */
+/* ===== Seam blur ===== */
 .seam-top, .seam-bottom, .seam-both{ position:relative; z-index:0; }
 .seam-top::after,
 .seam-bottom::after,
@@ -71,10 +79,9 @@ h1,h2,h3{
 .seam-both::after{
   content:"";
   position:absolute; left:0; right:0; height:24px; pointer-events:none; z-index:2;
-  background: rgba(255,255,255,0.001); /* включает backdrop-слой */
+  background: rgba(255,255,255,0.001);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
-  /* узкая перьевая маска — размазывает только тонкую полоску */
   -webkit-mask-image:linear-gradient(to bottom, rgba(0,0,0,0), #000 38%, #000 62%, rgba(0,0,0,0));
   mask-image:linear-gradient(to bottom, rgba(0,0,0,0), #000 38%, #000 62%, rgba(0,0,0,0));
 }
@@ -83,7 +90,7 @@ h1,h2,h3{
 .seam-both::before{ top:-12px; }
 .seam-both::after{ bottom:-12px; }
 
-/* ===== Sky (звезды + сияние) ===== */
+/* ===== Sky ===== */
 .hero > :not(.sky){ position:relative; z-index:1; }
 .sky{
   position:absolute; inset:0;
@@ -131,7 +138,7 @@ h1,h2,h3{
 }
 .tagline{ font-size:1.08rem; color:#333d; margin:0 0 26px; }
 
-/* Logo (мягкое «плавание») */
+/* Logo */
 .logo{
   width:108px; margin:0 auto 20px; display:block;
   animation:float 8s ease-in-out infinite;
@@ -179,7 +186,7 @@ h1,h2,h3{
 .reveal-init{ opacity:0; transform:translateY(18px); }
 .reveal-init.in{ opacity:1; transform:none; transition:opacity .65s cubic-bezier(.2,.8,.2,1), transform .65s cubic-bezier(.2,.8,.2,1); }
 
-/* ===== Product (BookBuddy) ===== */
+/* ===== Product ===== */
 .product-wrap{ max-width:1200px; margin:0 auto; }
 .product-perspective{
   position:relative;
@@ -218,19 +225,19 @@ h1,h2,h3{
 .slider-caption h3{font-size:1.2rem; margin:0 0 4px; font-weight:700;}
 .slider-caption p{font-size:.98rem; opacity:.96; margin:0;}
 
-/* Мобильные фиксы */
+/* ===== Mobile ===== */
 @media (max-width: 768px){
   .logo{ width:96px; }
   .hero{ padding-top:88px; }
   .product{ padding-bottom: 110px; }
-  .product-frame{ transform: rotateZ(-4.5deg); } /* меньше затрат на перерисовку */
+  .product-frame{ transform: rotateZ(-4.5deg); }
   .slider-caption{ bottom:10px; left:10px; right:auto; }
   .caption-glass{ padding:8px 10px; max-width:70%; }
   .slider-caption h3{ font-size:1rem; }
   .slider-caption p{ font-size:.88rem; }
 }
 
-/* ===== Join Us + Footer (footer — часть последнего градиента) ===== */
+/* ===== Join Us + Footer ===== */
 .join h2{ font-size:2.2rem; margin:0 0 8px; font-weight:700; }
 .join-sub{ color:#5a5a5a; margin:0 0 28px; }
 .cards{
@@ -264,7 +271,7 @@ h1,h2,h3{
 }
 .card.in{opacity:1; transform:none}
 
-/* Footer (внутри .join — без собственного градиента) */
+/* Footer */
 footer{
   margin-top:48px;
   padding:40px 20px 46px;
