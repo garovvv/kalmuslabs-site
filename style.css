@@ -1,11 +1,21 @@
-/* ===== Base ===== */
+/* ===== Base (updated dawn palette) ===== */
 :root{
   --ink:#1a1a1a;
   --muted:#4a4a4a;
+
+  /* brand */
   --brand:#2A4D9B;
   --brand-2:#6b8ce3;
-  --bg-hero-top:#eaf0ff;
-  --bg-page:#ffffff;
+
+  /* dawn sky */
+  --dawn-0:#f8fbff;  /* ледяной белый */
+  --dawn-1:#eef3ff;  /* мягкий перивинкль */
+  --dawn-2:#e6efff;  /* бледно-голубой */
+  --dawn-3:#ffffff;  /* чистый белый */
+
+  /* aurora glows */
+  --aurora-1:rgba(133,163,255,.22); /* холодный синий */
+  --aurora-2:rgba(255,210,255,.12); /* нежный розово-лиловый */
 }
 
 *{box-sizing:border-box}
@@ -14,33 +24,60 @@ body{
   margin:0;
   font-family:'Roboto',system-ui,-apple-system,Segoe UI,Helvetica,Arial,sans-serif;
   color:var(--ink);
-  background: linear-gradient(135deg,#f0f4ff 0%,#ffffff 70%,#fdfcfb 100%);
+  background:linear-gradient(180deg,var(--dawn-0) 0%, var(--dawn-3) 65%, #fbfbfb 100%);
   text-align:center;
   scroll-behavior:smooth;
 }
 
-/* ===== Hero with pastel night sky ===== */
+/* ===== Hero with pastel "white night" ===== */
 .hero{
   position:relative;
   padding:120px 20px 80px;
   overflow:hidden;
-  background: linear-gradient(180deg,var(--bg-hero-top) 0%, #ffffff 100%);
+  background:linear-gradient(180deg,var(--dawn-1) 0%, var(--dawn-3) 100%);
   border-bottom:1px solid #e9ecf3;
   animation:fadeIn 1.2s ease;
 }
 
+/* Sky container (parallax target) */
 .sky{
-  position:absolute; inset:-20% -10% auto -10%;
-  height:60vh; pointer-events:none;
+  position:absolute; inset:0 0 auto 0;
+  height:64svh; pointer-events:none; will-change:transform;
+  /* мягкое свечение рассвета */
   background:
-    radial-gradient(1px 1px at 10% 30%, rgba(255,255,255,.7) 40%, transparent 41%) repeat,
-    radial-gradient(1.2px 1.2px at 40% 20%, rgba(255,255,255,.5) 40%, transparent 41%) repeat,
-    radial-gradient(1px 1px at 70% 35%, rgba(255,255,255,.6) 40%, transparent 41%) repeat,
-    radial-gradient(1.5px 1.5px at 85% 10%, rgba(255,255,255,.45) 40%, transparent 41%) repeat;
-  background-size: 180px 180px, 220px 220px, 260px 260px, 300px 300px;
-  animation:twinkle 6s ease-in-out infinite alternate;
+    radial-gradient(120% 80% at 50% -20%, var(--aurora-1) 0%, rgba(255,255,255,0) 60%),
+    radial-gradient(90% 60% at 20% -10%, var(--aurora-2) 0%, rgba(255,255,255,0) 55%);
+  mix-blend-mode:screen;
+  mask-image:linear-gradient(#000, #000, rgba(0,0,0,0) 85%);
+}
+
+/* слой мелких звёзд */
+.sky::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(1px 1px at 10% 30%, rgba(255,255,255,.75) 99%, transparent 100%) repeat,
+    radial-gradient(1.2px 1.2px at 40% 18%, rgba(255,255,255,.6) 99%, transparent 100%) repeat,
+    radial-gradient(1px 1px at 70% 28%, rgba(255,255,255,.7) 99%, transparent 100%) repeat,
+    radial-gradient(1.4px 1.4px at 85% 12%, rgba(255,255,255,.55) 99%, transparent 100%) repeat;
+  background-size: 160px 160px, 220px 220px, 280px 280px, 340px 340px;
+  animation:twinkleA 7.5s ease-in-out infinite alternate;
   opacity:.65;
-  filter: blur(.2px);
+  filter: blur(.15px);
+}
+
+/* слой редких чуть крупных звёзд + дополнительное нежное свечение */
+.sky::after{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(1.8px 1.8px at 25% 22%, rgba(255,255,255,.55) 99%, transparent 100%) repeat,
+    radial-gradient(2px 2px at 78% 18%, rgba(255,255,255,.5) 99%, transparent 100%) repeat,
+    radial-gradient(60% 40% at 70% -12%, rgba(151,176,255,.12) 0%, rgba(255,255,255,0) 60%);
+  background-size: 420px 420px, 520px 520px, auto;
+  animation:twinkleB 9s ease-in-out infinite alternate-reverse;
+  opacity:.55;
+  mix-blend-mode:screen;
 }
 
 .logo{
@@ -55,10 +92,7 @@ body{
   -webkit-background-clip:text; -webkit-text-fill-color:transparent;
 }
 
-.tagline{
-  font-size:1.22rem; color:#3a3a3a; margin:0 0 28px;
-}
-
+.tagline{ font-size:1.22rem; color:#3a3a3a; margin:0 0 28px; }
 .hero-buttons{display:flex; justify-content:center; gap:16px;}
 
 /* Buttons */
@@ -72,44 +106,28 @@ body{
 .btn.secondary{border-color:var(--brand); color:var(--brand); background:transparent;}
 .btn.secondary:hover{background:var(--brand); color:#fff}
 
-/* ===== BookBuddy Scrollable Frame ===== */
+/* ===== Scrollable BookBuddy frame ===== */
 .product-frame{
   position:relative; margin:46px auto 0;
   width:min(980px,92vw); aspect-ratio:16/9;
   transform:rotate(-4.5deg); border-radius:18px; overflow:hidden;
-  box-shadow:0 18px 50px rgba(0,0,0,.14), 0 6px 18px rgba(0,0,0,.08);
+  box-shadow:0 18px 50px rgba(0,0,0,.12), 0 6px 18px rgba(0,0,0,.08);
   background:#0b1022;
 }
-
-/* при наведении включаем прокрутку */
-.product-frame:hover .scroll-container{
-  overflow-y:auto;
-}
-
-/* контейнер для BD.png */
-.scroll-container{
-  width:100%; height:100%;
-  overflow:hidden;
-}
-.scroll-container img{
-  width:100%; display:block;
-}
-
-/* подпись */
+.product-frame:hover .scroll-container{ overflow-y:auto; }
+.scroll-container{ width:100%; height:100%; overflow:hidden; }
+.scroll-container img{ width:100%; display:block; }
 .slider-caption{
   position:absolute; bottom:20px; left:28px;
-  color:#fff; text-align:left;
-  font-family:'Inter',sans-serif;
+  color:#fff; text-align:left; font-family:'Inter',sans-serif;
   text-shadow:0 3px 6px rgba(0,0,0,.5);
 }
 .slider-caption h3{font-size:1.6rem; margin:0 0 4px; font-weight:700;}
-.slider-caption p{font-size:1rem; opacity:0.9; margin:0;}
+.slider-caption p{font-size:1rem; opacity:.9; margin:0;}
 
 /* ===== Purpose ===== */
 .purpose{padding:90px 20px 70px;}
-.purpose h2{
-  font-family:'Inter',sans-serif; font-size:2.2rem; margin:0 0 28px;
-}
+.purpose h2{ font-family:'Inter',sans-serif; font-size:2.2rem; margin:0 0 28px; }
 .purpose-grid{
   display:grid; gap:18px;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -118,27 +136,18 @@ body{
 .purpose-card{
   background:#fff; border:1px solid #eceff6; border-radius:16px; text-align:left;
   padding:22px 22px 18px; box-shadow:0 6px 14px rgba(0,0,0,.06);
-  transform:translateY(16px); opacity:0;
-  transition:.6s cubic-bezier(.2,.8,.2,1);
+  transform:translateY(16px); opacity:0; transition:.6s cubic-bezier(.2,.8,.2,1);
 }
-.purpose-card h3{
-  font-family:'Inter',sans-serif; margin:4px 0 10px; font-size:1.25rem;
-}
-.purpose-card p{color:var(--muted); margin:0 0 10px}
-.bullets{padding-left:18px; margin:8px 0 0}
-.bullets li{margin:6px 0; color:#333}
-
+.purpose-card h3{ font-family:'Inter',sans-serif; margin:4px 0 10px; font-size:1.25rem; }
+.purpose-card p{ color:var(--muted); margin:0 0 10px; }
+.bullets{ padding-left:18px; margin:8px 0 0; }
+.bullets li{ margin:6px 0; color:#333; }
 .reveal.in{opacity:1; transform:none}
 
 /* ===== Join Us ===== */
-.join{
-  padding:90px 20px; background:#f7f9fc;
-}
-.join h2{
-  font-family:'Inter',sans-serif; font-size:2.2rem; margin:0 0 8px;
-}
-.join-sub{color:#5a5a5a; margin:0 0 28px}
-
+.join{ padding:90px 20px; background:#f7f9fc; }
+.join h2{ font-family:'Inter',sans-serif; font-size:2.2rem; margin:0 0 8px; }
+.join-sub{ color:#5a5a5a; margin:0 0 28px; }
 .cards{
   display:grid; gap:18px;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -168,4 +177,11 @@ footer p{color:#555; margin:6px 0}
 /* ===== Animations ===== */
 @keyframes fadeIn{from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:none}}
 @keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)}}
-@keyframes twinkle{from{opacity:.45} to{opacity:.75}}
+@keyframes twinkleA{0%{opacity:.45} 50%{opacity:.85} 100%{opacity:.55}}
+@keyframes twinkleB{0%{opacity:.35} 50%{opacity:.75} 100%{opacity:.5}}
+
+/* Respect motion prefs */
+@media (prefers-reduced-motion: reduce){
+  .sky, .sky::before, .sky::after{ animation:none !important; }
+  .logo{ animation:none; }
+}
