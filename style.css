@@ -26,9 +26,11 @@
 
 *{box-sizing:border-box}
 html,body{height:100%}
+
+/* Жёстко фиксируем шрифты (чтобы не «терялись») */
+html{ font-family:'Manrope', system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif !important; }
 body{
   margin:0;
-  font-family:'Manrope', system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
   color:var(--ink);
   background:linear-gradient(180deg, var(--dawn-3) 0%, var(--dawn-2) 30%, var(--dawn-1) 65%, var(--dawn-0) 100%);
   text-align:center;
@@ -45,7 +47,7 @@ body{
 }
 .hero > :not(.sky){ position:relative; z-index:1; }
 
-/* ===== Sky (starts at top, warm stars) ===== */
+/* ===== Sky ===== */
 .sky{
   position:absolute; inset:0;
   height:72vh;
@@ -84,12 +86,8 @@ body{
   opacity:.68;
 }
 
-/* ===== Logo + headings ===== */
-.logo{
-  width:120px; margin:0 auto 22px; display:block;
-  animation:float 8s ease-in-out infinite;
-}
-h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif; letter-spacing:0.2px; }
+/* ===== Typography ===== */
+h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif !important; letter-spacing:0.2px; }
 .hero h1{
   font-size:3.25rem; font-weight:800; margin:10px 0 6px;
   background:linear-gradient(90deg,var(--brand),var(--brand-2));
@@ -112,18 +110,25 @@ h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif; letter-spacing:0.2px; }
 .btn.secondary:hover{background:var(--brand); color:#fff; transform:translateY(-1px) scale(1.05)}
 .btn.small{padding:10px 16px; border-radius:10px}
 
-/* ===== Soft feather between sections (без "стекла") ===== */
-.feather-top, .feather-bottom, .feather-both{ position:relative; }
-.feather-top::before,
-.feather-bottom::after,
-.feather-both::before,
-.feather-both::after{
-  content:""; position:absolute; left:0; right:0; height:64px; pointer-events:none;
+/* ===== Seam softeners (тонкие «перья» на стыках) ===== */
+.seam-top, .seam-bottom, .seam-both{ position:relative; }
+.seam-top::before,
+.seam-bottom::after,
+.seam-both::before,
+.seam-both::after{
+  content:""; position:absolute; left:0; right:0; height:48px; pointer-events:none;
+  background:transparent;
 }
-.feather-top::before,
-.feather-both::before{ top:-1px; background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.10) 100%); }
-.feather-bottom::after,
-.feather-both::after{ bottom:-1px; background:linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.10) 100%); }
+.seam-top::before,
+.seam-both::before{
+  top:-1px;
+  background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.08) 100%);
+}
+.seam-bottom::after,
+.seam-both::after{
+  bottom:-1px;
+  background:linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.08) 100%);
+}
 
 /* ===== Purpose ===== */
 .purpose{padding:96px 20px 72px; background:transparent;}
@@ -153,23 +158,20 @@ h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif; letter-spacing:0.2px; }
 .reveal.in{opacity:1; transform:none}
 
 /* ===== Product (BookBuddy) ===== */
-.product{ padding:54px 20px 36px; background:transparent; }
+.product{ padding:60px 20px 90px; background:transparent; }
 .product-wrap{ max-width:1200px; margin:0 auto; }
 .product-perspective{
   position:relative;
-  perspective: 1400px;          /* 3D перспектива как у Linear */
+  perspective: 1400px;
   display:flex; align-items:center; justify-content:center;
 }
 .product-frame{
   position:relative;
   width:min(980px,92vw); aspect-ratio:16/9;
-  border-radius:20px; overflow:hidden;
-  background:#0b1022;
-  /* 3D угол: лист слегка наклонён вперёд и влево */
-  transform: rotateX(14deg) rotateZ(-10deg);
-  box-shadow:
-    0 28px 60px rgba(0,0,0,.18),
-    0 10px 24px rgba(0,0,0,.12);
+  border-radius:20px; overflow:hidden; background:#0b1022;
+  /* мягкий, читабельный угол */
+  transform: rotateX(9deg) rotateZ(-8deg);
+  box-shadow: 0 28px 60px rgba(0,0,0,.18), 0 10px 24px rgba(0,0,0,.12);
   will-change:transform;
 }
 .product-shadow{
@@ -194,6 +196,14 @@ h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif; letter-spacing:0.2px; }
 }
 .slider-caption h3{font-size:1.2rem; margin:0 0 4px; font-weight:800;}
 .slider-caption p{font-size:.98rem; opacity:.96; margin:0;}
+
+/* На мобильных упрощаем угол и убираем «мельтешение» */
+@media (max-width: 768px){
+  .product{ padding-bottom: 110px; }
+  .product-frame{ transform: rotateZ(-4deg); }
+  .slider-caption{ bottom:12px; left:12px; right:auto; }
+  .caption-glass{ padding:10px 12px; }
+}
 
 /* ===== Join Us ===== */
 .join{ padding:96px 20px; background:transparent; }
@@ -244,7 +254,7 @@ footer p{color:#555; margin:6px 0}
 .seq-init{ opacity:0; transform:translateY(12px); transition:opacity .55s ease var(--d,0ms), transform .55s ease var(--d,0ms); }
 .seq-init.in{ opacity:1; transform:none; }
 
-/* Reveal in/out (мягко, без рывков) */
+/* Reveal in/out */
 .reveal-init{ opacity:0; transform:translateY(18px); }
 .reveal-init.in{ opacity:1; transform:none; transition:opacity .65s cubic-bezier(.2,.8,.2,1), transform .65s cubic-bezier(.2,.8,.2,1); }
 
