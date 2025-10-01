@@ -231,7 +231,7 @@ h1,h2,h3{
   .logo{ width:96px; }
   .hero{ padding-top:88px; }
   .product{ padding-bottom: 110px; }
-  .product-frame{ transform: rotateZ(-4.5deg); }
+  /* .product-frame{ transform: rotateZ(-4.5deg); } <-- убрать */
   .slider-caption{ bottom:10px; left:10px; right:auto; }
   .caption-glass{ padding:8px 10px; max-width:70%; }
   .slider-caption h3{ font-size:1rem; }
