@@ -17,11 +17,12 @@
 <body>
   <!-- Hero -->
   <section class="hero">
+    <!-- Stars layer (always behind) -->
     <div class="sky" aria-hidden="true"></div>
 
     <img src="logo_main.png" alt="Kalmus Labs Logo" class="logo seq" />
     <h1 class="seq">Kalmus Labs</h1>
-    <p class="tagline seq">Study & tutoring – finally feels right.</p>
+    <p class="tagline seq">Study & tutoring - finally feels right.</p>
 
     <div class="hero-buttons seq">
       <a href="mailto:founder@kalmuslabs.com" class="btn primary">Contact us</a>
@@ -29,7 +30,7 @@
     </div>
   </section>
 
-  <!-- Purpose (Problem → Belief → Solution) -->
+  <!-- Purpose (Problem -> Belief -> Solution) -->
   <section class="purpose" id="purpose">
     <h2 class="seq">Purpose</h2>
     <div class="purpose-grid">
@@ -37,7 +38,7 @@
         <h3>Problem</h3>
         <p>
           AI is reshaping work. People get reduced to spreadsheet rows. Learning still feels lonely:
-          PDFs, jargon, tab-hopping between translators and explainers — zero support, zero flow.
+          PDFs, jargon, tab-hopping between translators and explainers - zero support, zero flow.
         </p>
         <ul class="bullets">
           <li>No built-in help or translation</li>
@@ -50,7 +51,7 @@
         <h3>Belief</h3>
         <p>
           Work and study should feel human. We value equity, growth, and real ownership.
-          You shouldn’t wait for a layoff — you should build your future.
+          You should not wait for a layoff - you should build your future.
         </p>
         <ul class="bullets">
           <li>Human-first, builder culture</li>
@@ -62,27 +63,29 @@
       <article class="purpose-card reveal">
         <h3>Solution</h3>
         <p>
-          We’re building human-centered AI tools for learning. Our first prototype,
+          We are building human-centered AI tools for learning. Our first prototype,
           <strong>BookBuddy</strong>, turns any document into a guided conversation that adapts to you.
         </p>
         <ul class="bullets">
           <li>Explains concepts in plain language</li>
           <li>Asks good questions; builds mastery</li>
-          <li>Feels like a tutor — not a chatbot</li>
+          <li>Feels like a tutor - not a chatbot</li>
         </ul>
       </article>
     </div>
   </section>
 
-  <!-- BookBuddy Preview (между Purpose и Join Us) -->
+  <!-- BookBuddy Preview (between Purpose and Join Us) -->
   <section class="product">
     <div class="product-frame reveal">
       <div class="scroll-container">
         <img src="BD.png" alt="BookBuddy preview">
       </div>
       <div class="slider-caption">
-        <h3>BookBuddy</h3>
-        <p>Turn any document into a personal learning session.</p>
+        <div class="caption-glass">
+          <h3>BookBuddy</h3>
+          <p>Turn any document into a personal learning session.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -90,18 +93,18 @@
   <!-- Join Us -->
   <section id="join" class="join">
     <h2 class="seq">Join Us</h2>
-    <p class="join-sub seq">Build the future with us — not as a cog, but as an owner.</p>
+    <p class="join-sub seq">Build the future with us - not as a cog, but as an owner.</p>
 
     <div class="cards">
       <div class="card reveal">
         <h3>👨‍💻 Tech Lead</h3>
-        <p>Shape the architecture and ship from MVP → v1.</p>
+        <p>Shape the architecture and ship from MVP -> v1.</p>
         <ul class="mini">
           <li>Equity from day one</li>
           <li>Fast decisions, real ownership</li>
           <li>LLM pipelines, quality foundations</li>
         </ul>
-        <a href="mailto:founder@kalmuslabs.com?subject=Tech%20Lead%20—%20Kalmus%20Labs" class="btn small primary">Apply now</a>
+        <a href="mailto:founder@kalmuslabs.com?subject=Tech%20Lead%20-%20Kalmus%20Labs" class="btn small primary equal-btn">Apply now</a>
       </div>
 
       <div class="card reveal">
@@ -112,7 +115,7 @@
           <li>Use AI as a force multiplier</li>
           <li>Grow into core roles</li>
         </ul>
-        <a href="mailto:founder@kalmuslabs.com?subject=Engineer%20—%20Kalmus%20Labs" class="btn small primary">Apply now</a>
+        <a href="mailto:founder@kalmuslabs.com?subject=Engineer%20-%20Kalmus%20Labs" class="btn small primary equal-btn">Apply now</a>
       </div>
 
       <div class="card reveal">
@@ -123,7 +126,7 @@
           <li>Visual identity & motion</li>
           <li>Own craft, shape the brand</li>
         </ul>
-        <a href="mailto:founder@kalmuslabs.com?subject=Designer%20—%20Kalmus%20Labs" class="btn small primary">Apply now</a>
+        <a href="mailto:founder@kalmuslabs.com?subject=Designer%20-%20Kalmus%20Labs" class="btn small primary equal-btn">Apply now</a>
       </div>
     </div>
   </section>
@@ -135,36 +138,39 @@
     <a href="https://www.linkedin.com" target="_blank" class="linkedin">LinkedIn</a>
   </footer>
 
-  <!-- Reveal / Sequencing -->
+  <!-- Sequencing + Reveal + Smooth dim-out -->
   <script>
-    // Стартовая последовательная анимация
+    // initial sequence (top -> down)
     const seqEls = [...document.querySelectorAll('.seq')];
     seqEls.forEach((el, i) => {
-      el.style.setProperty('--d', `${i * 90}ms`);
+      el.style.setProperty('--d', `${i * 110}ms`);
       el.classList.add('seq-init');
       requestAnimationFrame(() => el.classList.add('in'));
     });
 
-    // Reveal при скролле и «затухание», когда элемент уходит
+    // scroll reveal + gentle fade-out when leaving viewport
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
           e.target.classList.add('in');
+          e.target.classList.remove('out');
         } else {
+          // do not vanish instantly - go to "out" state (dim)
+          e.target.classList.add('out');
           e.target.classList.remove('in');
         }
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+    }, { threshold: 0.18, rootMargin: '0px 0px -12% 0px' });
 
     document.querySelectorAll('.reveal').forEach(el => {
       el.classList.add('reveal-init');
       io.observe(el);
     });
 
-    // Параллакс для неба
+    // Parallax for sky
     const sky = document.querySelector('.sky');
     addEventListener('scroll', () => {
-      const y = Math.min(140, window.scrollY * 0.12);
+      const y = Math.min(160, window.scrollY * 0.12);
       sky.style.transform = `translateY(${ -y }px)`;
     }, {passive:true});
   </script>
