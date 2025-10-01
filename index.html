@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Favicon -->
-  <link rel="icon" href="favicon.ico">
-  <link rel="icon" type="image/png" href="logo.png" sizes="any">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kalmus Labs</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico">
+  <link rel="icon" type="image/png" href="logo.png" sizes="any">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
@@ -17,6 +18,7 @@
   <!-- Hero -->
   <section class="hero">
     <div class="sky" aria-hidden="true"></div>
+
     <img src="logo_main.png" alt="Kalmus Labs Logo" class="logo" />
     <h1>Kalmus Labs</h1>
     <p class="tagline">Study & tutoring - finally feels right.</p>
@@ -141,7 +143,6 @@
         }
       });
     }, { threshold: 0.18 });
-
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   </script>
 
