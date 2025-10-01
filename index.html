@@ -10,7 +10,7 @@
   <link rel="icon" type="image/png" href="logo.png" sizes="any">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -19,36 +19,25 @@
   <section class="hero">
     <div class="sky" aria-hidden="true"></div>
 
-    <img src="logo_main.png" alt="Kalmus Labs Logo" class="logo" />
-    <h1>Kalmus Labs</h1>
-    <p class="tagline">Study & tutoring - finally feels right.</p>
+    <img src="logo_main.png" alt="Kalmus Labs Logo" class="logo seq" />
+    <h1 class="seq">Kalmus Labs</h1>
+    <p class="tagline seq">Study & tutoring – finally feels right.</p>
 
-    <div class="hero-buttons">
+    <div class="hero-buttons seq">
       <a href="mailto:founder@kalmuslabs.com" class="btn primary">Contact us</a>
       <a href="#join" class="btn secondary">Join us</a>
-    </div>
-
-    <!-- BookBuddy Preview -->
-    <div class="product-frame">
-      <div class="scroll-container">
-        <img src="BD.png" alt="BookBuddy preview">
-      </div>
-      <div class="slider-caption">
-        <h3>BookBuddy</h3>
-        <p>Turn any document into a personal learning session.</p>
-      </div>
     </div>
   </section>
 
   <!-- Purpose (Problem → Belief → Solution) -->
   <section class="purpose" id="purpose">
-    <h2>Purpose</h2>
+    <h2 class="seq">Purpose</h2>
     <div class="purpose-grid">
       <article class="purpose-card reveal">
         <h3>Problem</h3>
         <p>
           AI is reshaping work. People get reduced to spreadsheet rows. Learning still feels lonely:
-          PDFs, jargon, tab-hopping between translators and explainers - zero support, zero flow.
+          PDFs, jargon, tab-hopping between translators and explainers — zero support, zero flow.
         </p>
         <ul class="bullets">
           <li>No built-in help or translation</li>
@@ -61,7 +50,7 @@
         <h3>Belief</h3>
         <p>
           Work and study should feel human. We value equity, growth, and real ownership.
-          You shouldn’t wait for a layoff - you should build your future.
+          You shouldn’t wait for a layoff — you should build your future.
         </p>
         <ul class="bullets">
           <li>Human-first, builder culture</li>
@@ -79,16 +68,29 @@
         <ul class="bullets">
           <li>Explains concepts in plain language</li>
           <li>Asks good questions; builds mastery</li>
-          <li>Feels like a tutor - not a chatbot</li>
+          <li>Feels like a tutor — not a chatbot</li>
         </ul>
       </article>
     </div>
   </section>
 
+  <!-- BookBuddy Preview (между Purpose и Join Us) -->
+  <section class="product">
+    <div class="product-frame reveal">
+      <div class="scroll-container">
+        <img src="BD.png" alt="BookBuddy preview">
+      </div>
+      <div class="slider-caption">
+        <h3>BookBuddy</h3>
+        <p>Turn any document into a personal learning session.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Join Us -->
   <section id="join" class="join">
-    <h2>Join Us</h2>
-    <p class="join-sub">Build the future with us - not as a cog, but as an owner.</p>
+    <h2 class="seq">Join Us</h2>
+    <p class="join-sub seq">Build the future with us — not as a cog, but as an owner.</p>
 
     <div class="cards">
       <div class="card reveal">
@@ -133,24 +135,36 @@
     <a href="https://www.linkedin.com" target="_blank" class="linkedin">LinkedIn</a>
   </footer>
 
-  <!-- Minimal reveal-on-scroll -->
+  <!-- Reveal / Sequencing -->
   <script>
+    // Стартовая последовательная анимация
+    const seqEls = [...document.querySelectorAll('.seq')];
+    seqEls.forEach((el, i) => {
+      el.style.setProperty('--d', `${i * 90}ms`);
+      el.classList.add('seq-init');
+      requestAnimationFrame(() => el.classList.add('in'));
+    });
+
+    // Reveal при скролле и «затухание», когда элемент уходит
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
           e.target.classList.add('in');
-          io.unobserve(e.target);
+        } else {
+          e.target.classList.remove('in');
         }
       });
-    }, { threshold: 0.18 });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-  </script>
+    }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
 
-  <!-- Parallax effect for sky -->
-  <script>
+    document.querySelectorAll('.reveal').forEach(el => {
+      el.classList.add('reveal-init');
+      io.observe(el);
+    });
+
+    // Параллакс для неба
     const sky = document.querySelector('.sky');
     addEventListener('scroll', () => {
-      const y = Math.min(120, window.scrollY * 0.12);
+      const y = Math.min(140, window.scrollY * 0.12);
       sky.style.transform = `translateY(${ -y }px)`;
     }, {passive:true});
   </script>
