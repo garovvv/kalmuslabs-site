@@ -1,4 +1,4 @@
-/* ===== Base (dawn sky pastel palette) ===== */
+/* ===== Base (dawn sky palette) ===== */
 :root{
   --ink:#0f1320;
   --muted:#525a66;
@@ -7,21 +7,21 @@
   --brand:#2A4D9B;
   --brand-2:#6b8ce3;
 
-  /* global morning gradient (slightly deeper on top) */
-  --dawn-0:#f6f8fc;  /* pearly near-white bottom */
-  --dawn-1:#e5ecf6;
-  --dawn-2:#ccd7ee;
-  --dawn-3:#b9c8e5;  /* top */
+  /* global morning gradient (deeper top -> pearly bottom) */
+  --dawn-0:#f5f7fb;
+  --dawn-1:#e3eaf6;
+  --dawn-2:#cbd6ee;
+  --dawn-3:#b5c5e4;
 
-  /* star tones - warm */
+  /* stars */
   --star-w1:#fff6bf;
   --star-w2:#ffefaa;
   --star-w3:#fffdf3;
   --star-cool:#eef3ff;
 
-  /* soft glows */
-  --aurora-1:rgba(160,190,255,.32);
-  --aurora-2:rgba(220,230,255,.24);
+  /* aurora glow */
+  --aurora-1:rgba(160,190,255,.34);
+  --aurora-2:rgba(220,230,255,.25);
 }
 
 *{box-sizing:border-box}
@@ -41,23 +41,19 @@ body{
   padding:120px 20px 80px;
   overflow:hidden;
   background:transparent;
-  border-bottom:1px solid rgba(233,236,243,.35);
   animation:fadeIn 1.2s ease;
 }
 .hero > :not(.sky){ position:relative; z-index:1; }
 
-/* ===== Sky (starts from very top, more/warmer stars) ===== */
+/* ===== Sky (starts at top, warm stars) ===== */
 .sky{
   position:absolute; inset:0;
   height:72vh;
   pointer-events:none; will-change:transform;
   z-index:0;
-
   -webkit-mask-image:linear-gradient(#000 0%, #000 84%, rgba(0,0,0,0) 100%);
   mask-image:linear-gradient(#000 0%, #000 84%, rgba(0,0,0,0) 100%);
-
   background:
-    /* bigger warm speckles */
     radial-gradient(3.2px 3.2px at 6% 10%, var(--star-w1) 96%, transparent 100%) repeat,
     radial-gradient(2.8px 2.8px at 20% 22%, var(--star-w2) 96%, transparent 100%) repeat,
     radial-gradient(2.6px 2.6px at 36% 16%, var(--star-w3) 96%, transparent 100%) repeat,
@@ -67,23 +63,19 @@ body{
     radial-gradient(1.4px 1.4px at 44% 34%, var(--star-w1) 96%, transparent 100%) repeat,
     radial-gradient(1.2px 1.2px at 70% 44%, var(--star-cool) 96%, transparent 100%) repeat;
   background-size: 220px 220px, 260px 260px, 320px 320px, 380px 380px, 460px 460px, 520px 520px, 240px 240px, 320px 320px;
-
   animation: twinkleA 10.5s ease-in-out infinite alternate;
   opacity:.99;
   filter: contrast(112%) brightness(104%);
 }
 .sky::before{
-  content:"";
-  position:absolute; inset:0;
+  content:""; position:absolute; inset:0;
   background:
     radial-gradient(120% 82% at 50% -30%, var(--aurora-1) 0%, rgba(255,255,255,0) 64%),
     radial-gradient(98% 68% at 24% -16%, var(--aurora-2) 0%, rgba(255,255,255,0) 60%);
-  mix-blend-mode:screen;
-  opacity:.93;
+  mix-blend-mode:screen; opacity:.93;
 }
 .sky::after{
-  content:"";
-  position:absolute; inset:0;
+  content:""; position:absolute; inset:0;
   background:
     radial-gradient(3.6px 3.6px at 72% 18%, var(--star-w3) 98%, transparent 100%) repeat,
     radial-gradient(3px 3px at 30% 52%, var(--star-w1) 98%, transparent 100%) repeat;
@@ -95,7 +87,7 @@ body{
 /* ===== Logo + headings ===== */
 .logo{
   width:120px; margin:0 auto 22px; display:block;
-  animation:float 8s ease-in-out infinite; /* ещё +15% амплитуда */
+  animation:float 8s ease-in-out infinite;
 }
 h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif; letter-spacing:0.2px; }
 .hero h1{
@@ -110,7 +102,7 @@ h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif; letter-spacing:0.2px; }
 .btn{
   padding:12px 22px; border-radius:12px; font-weight:800;
   text-decoration:none; display:inline-block; border:2px solid transparent;
-  transition:transform .2s cubic-bezier(.2,.8,.2,1), box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+  transition:transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease, background .22s ease, color .22s ease, border-color .22s ease;
   will-change:transform, box-shadow;
 }
 .btn.primary{background:var(--brand); color:#fff; box-shadow:0 6px 14px rgba(42,77,155,.25)}
@@ -120,17 +112,18 @@ h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif; letter-spacing:0.2px; }
 .btn.secondary:hover{background:var(--brand); color:#fff; transform:translateY(-1px) scale(1.05)}
 .btn.small{padding:10px 16px; border-radius:10px}
 
-/* ===== Section soft blend (top/bottom feather) ===== */
-.section-blend{ position:relative; }
-.section-blend::before,
-.section-blend::after{
-  content:""; position:absolute; left:0; right:0; height:84px; pointer-events:none;
-  /* Feather with live backdrop so граница смешивается с тем, что ниже/выше */
-  -webkit-backdrop-filter: blur(6px) saturate(106%);
-  backdrop-filter: blur(6px) saturate(106%);
+/* ===== Soft feather between sections (без "стекла") ===== */
+.feather-top, .feather-bottom, .feather-both{ position:relative; }
+.feather-top::before,
+.feather-bottom::after,
+.feather-both::before,
+.feather-both::after{
+  content:""; position:absolute; left:0; right:0; height:64px; pointer-events:none;
 }
-.section-blend::before{ top:-1px; background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.12) 100%); }
-.section-blend::after{ bottom:-1px; background:linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.12) 100%); }
+.feather-top::before,
+.feather-both::before{ top:-1px; background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.10) 100%); }
+.feather-bottom::after,
+.feather-both::after{ bottom:-1px; background:linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.10) 100%); }
 
 /* ===== Purpose ===== */
 .purpose{padding:96px 20px 72px; background:transparent;}
@@ -144,38 +137,45 @@ h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif; letter-spacing:0.2px; }
   background:#fff; border:1px solid #eceff6; border-radius:18px; text-align:left;
   padding:22px 22px 18px; box-shadow:0 6px 14px rgba(0,0,0,.06);
   opacity:0; transform:translateY(16px);
-  transform-origin:center; will-change:transform, box-shadow;
+  transform-origin:center; will-change:transform, box-shadow, background, border-color;
   transition:transform 220ms cubic-bezier(.2,.8,.2,1), box-shadow 220ms ease, border-color 200ms ease, background 200ms ease, opacity 450ms ease;
 }
 .purpose-card h3{ margin:4px 0 10px; font-size:1.28rem; font-weight:800; }
 .purpose-card p{ color:var(--muted); margin:0 0 10px; }
 .bullets{ padding-left:18px; margin:8px 0 0; }
 .bullets li{ margin:6px 0; color:#333; }
-
-/* плавный hover (без рывков) */
 .purpose-card:hover{
-  transform:translateY(0) scale(1.018);
+  transform:translateY(-2px) scale(1.018);
   border-color:#d7e1fb;
   background:linear-gradient(180deg,#ffffff 0%, #f3f6ff 100%);
-  box-shadow:0 12px 26px rgba(42,77,155,.12);
+  box-shadow:0 14px 26px rgba(42,77,155,.12);
 }
 .reveal.in{opacity:1; transform:none}
 
 /* ===== Product (BookBuddy) ===== */
-.product{ padding:48px 20px 16px; background:transparent; }
-.product-wrap.reveal{ /* только эффект появления на wrapper’е */
-  opacity:0; transform:translateY(18px);
-  transition:opacity 650ms cubic-bezier(.2,.8,.2,1), transform 650ms cubic-bezier(.2,.8,.2,1);
+.product{ padding:54px 20px 36px; background:transparent; }
+.product-wrap{ max-width:1200px; margin:0 auto; }
+.product-perspective{
+  position:relative;
+  perspective: 1400px;          /* 3D перспектива как у Linear */
+  display:flex; align-items:center; justify-content:center;
 }
-.product-wrap.reveal.in{ opacity:1; transform:none; }
-
 .product-frame{
-  position:relative; margin:20px auto 0;
+  position:relative;
   width:min(980px,92vw); aspect-ratio:16/9;
-  transform:rotate(-7.5deg); transform-origin:center 60%;
   border-radius:20px; overflow:hidden;
-  box-shadow:0 18px 50px rgba(0,0,0,.12), 0 6px 18px rgba(0,0,0,.08);
   background:#0b1022;
+  /* 3D угол: лист слегка наклонён вперёд и влево */
+  transform: rotateX(14deg) rotateZ(-10deg);
+  box-shadow:
+    0 28px 60px rgba(0,0,0,.18),
+    0 10px 24px rgba(0,0,0,.12);
+  will-change:transform;
+}
+.product-shadow{
+  position:absolute; inset:auto 0 -18px 0; height:42px; z-index:-1;
+  filter: blur(18px); opacity:.55;
+  background: radial-gradient(60% 100% at 50% 0%, rgba(0,0,0,.28) 0%, rgba(0,0,0,0) 70%);
 }
 .scroll-container{width:100%; height:100%; overflow:hidden; overscroll-behavior:contain;}
 .product-frame:hover .scroll-container{ overflow-y:auto; }
@@ -209,7 +209,7 @@ h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif; letter-spacing:0.2px; }
   box-shadow:0 6px 14px rgba(0,0,0,.06); border:1px solid #e9edf6;
   opacity:0; transform:translateY(14px);
   display:flex; flex-direction:column;
-  transform-origin:center; will-change:transform, box-shadow;
+  transform-origin:center; will-change:transform, box-shadow, background, border-color;
   transition:transform 220ms cubic-bezier(.2,.8,.2,1), box-shadow 220ms ease, border-color 200ms ease, background 200ms ease, opacity 450ms ease;
 }
 .card h3{margin:0 0 8px; font-weight:800}
@@ -223,10 +223,10 @@ h1, h2, h3{ font-family:'Outfit','Manrope',sans-serif; letter-spacing:0.2px; }
   text-align:center;
 }
 .card:hover{
-  transform:translateY(0) scale(1.018);
+  transform:translateY(-2px) scale(1.018);
   border-color:#d7e1fb;
   background:linear-gradient(180deg,#ffffff 0%, #f3f6ff 100%);
-  box-shadow:0 12px 26px rgba(42,77,155,.12);
+  box-shadow:0 14px 26px rgba(42,77,155,.12);
 }
 .card.in{opacity:1; transform:none}
 
@@ -244,13 +244,13 @@ footer p{color:#555; margin:6px 0}
 .seq-init{ opacity:0; transform:translateY(12px); transition:opacity .55s ease var(--d,0ms), transform .55s ease var(--d,0ms); }
 .seq-init.in{ opacity:1; transform:none; }
 
-/* Reveal (добавляем один раз) */
-.reveal-init{ opacity:0; transform:translateY(16px); }
-.reveal-init.in{ opacity:1; transform:none; transition:.65s cubic-bezier(.2,.8,.2,1); }
+/* Reveal in/out (мягко, без рывков) */
+.reveal-init{ opacity:0; transform:translateY(18px); }
+.reveal-init.in{ opacity:1; transform:none; transition:opacity .65s cubic-bezier(.2,.8,.2,1), transform .65s cubic-bezier(.2,.8,.2,1); }
 
 /* ===== Animations ===== */
 @keyframes fadeIn{from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:none}}
-@keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-23px)}} /* усилили ещё */
+@keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-23px)}}
 @keyframes twinkleA { from { opacity:.72 } to { opacity: 1 } }
 @keyframes twinkleB { from { opacity:.46 } to { opacity: .78 } }
 
