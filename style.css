@@ -243,9 +243,9 @@ h1,h2,h3{
 
 /* Group wrappers */
 .groups{ max-width:1100px; margin:0 auto; display:grid; gap:28px; }
-.group{ text-align:left; }
+.group{ text-align:center; }
 .group-title{
-  display:flex; align-items:center; gap:8px;
+  display:flex; align-items:center; justify-content:center; gap:8px;
   margin:0 0 6px; font-size:1.34rem; font-weight:800;
 }
 .group-sub{ margin:0 0 14px; color:#5a5a5a; }
