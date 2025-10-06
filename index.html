@@ -38,7 +38,7 @@
   <section class="purpose seam-both" id="purpose">
     <h2 class="seq">Purpose</h2>
     <div class="purpose-grid">
-      <article class="purpose-card reveal">
+      <article class="purpose-card">
         <h3>Problem</h3>
         <p>
           AI is reshaping work. People get reduced to spreadsheet rows. Learning still feels lonely:
@@ -51,7 +51,7 @@
         </ul>
       </article>
 
-      <article class="purpose-card reveal">
+      <article class="purpose-card">
         <h3>Belief</h3>
         <p>
           Work and study should feel human. We value equity, growth, and real ownership.
@@ -64,7 +64,7 @@
         </ul>
       </article>
 
-      <article class="purpose-card reveal">
+      <article class="purpose-card">
         <h3>Solution</h3>
         <p>
           We are building human-centered AI tools for learning. Our first prototype,
@@ -81,7 +81,7 @@
 
   <!-- BookBuddy Preview -->
   <section class="product seam-both">
-    <div class="product-wrap reveal">
+    <div class="product-wrap">
       <div class="product-perspective">
         <div class="product-frame">
           <div class="scroll-container">
@@ -107,12 +107,12 @@
     <div class="groups">
 
       <!-- GROUP 1: Core Engineering -->
-      <div class="group reveal">
+      <div class="group">
         <h3 class="group-title">🧩 Core Engineering</h3>
         <p class="group-sub">Ship the core product: architecture, APIs, and interfaces.</p>
 
         <div class="cards">
-          <div class="card reveal">
+          <div class="card">
             <h3>👨‍💻 Tech Lead</h3>
             <p>Shape the architecture and ship from MVP → v1.</p>
             <ul class="mini">
@@ -123,7 +123,7 @@
             <a href="https://wellfound.com/l/2BGFdL" target="_blank" class="btn small primary equal-btn">Apply now</a>
           </div>
 
-          <div class="card reveal">
+          <div class="card">
             <h3>🛠️ Backend Engineer <span class="badge">×2</span></h3>
             <p>Build robust APIs, data flows, and AI/RAG services.</p>
             <ul class="mini">
@@ -134,7 +134,7 @@
             <a href="https://wellfound.com/l/2BGCUZ" target="_blank" class="btn small primary equal-btn">Apply now</a>
           </div>
 
-          <div class="card reveal">
+          <div class="card">
             <h3>💻 Frontend Engineer <span class="badge">×2</span></h3>
             <p>Craft a fast, elegant UI that feels calm and alive.</p>
             <ul class="mini">
@@ -148,12 +148,12 @@
       </div>
 
       <!-- GROUP 2: Design & Story -->
-      <div class="group reveal">
+      <div class="group">
         <h3 class="group-title">🎨 Design & Story</h3>
         <p class="group-sub">Define the feel, voice, and visual identity of BookBuddy.</p>
 
         <div class="cards">
-          <div class="card reveal">
+          <div class="card">
             <h3>🎨 Product Designer</h3>
             <p>Define our visual language, UX, and design system.</p>
             <ul class="mini">
@@ -164,7 +164,7 @@
             <a href="https://wellfound.com/l/2BGFkq" target="_blank" class="btn small primary equal-btn">Apply now</a>
           </div>
 
-          <div class="card reveal">
+          <div class="card">
             <h3>✨ Motion / Illustrator</h3>
             <p>Make the brand feel alive with motion & illustration.</p>
             <ul class="mini">
@@ -175,7 +175,7 @@
             <a href="https://wellfound.com/l/2BGFku" target="_blank" class="btn small primary equal-btn">Apply now</a>
           </div>
 
-          <div class="card reveal">
+          <div class="card">
             <h3>📣 Community / Content / PR</h3>
             <p>Shape our voice, grow awareness, and tell the story.</p>
             <ul class="mini">
@@ -189,12 +189,12 @@
       </div>
 
       <!-- GROUP 3: Delivery & Quality -->
-      <div class="group reveal">
+      <div class="group">
         <h3 class="group-title">🚀 Delivery & Quality</h3>
         <p class="group-sub">Ship to users with speed, reliability, and polish.</p>
 
         <div class="cards">
-          <div class="card reveal">
+          <div class="card">
             <h3>📱 Mobile Engineer</h3>
             <p>Bring BookBuddy to iOS/Android with delightful UX.</p>
             <ul class="mini">
@@ -205,7 +205,7 @@
             <a href="https://wellfound.com/l/2BGFdQ" target="_blank" class="btn small primary equal-btn">Apply now</a>
           </div>
 
-          <div class="card reveal">
+          <div class="card">
             <h3>⚙️ DevOps / Infra (PT)</h3>
             <p>CI/CD, cloud, observability — speed with reliability.</p>
             <ul class="mini">
@@ -213,4 +213,56 @@
               <li>AWS/GCP cost-smart setups</li>
               <li>Monitoring & security</li>
             </ul>
-            <a href="https://wellfound.com/l/2BGFkz" target="_b_
+            <a href="https://wellfound.com/l/2BGFkz" target="_blank" class="btn small primary equal-btn">Apply now</a>
+          </div>
+
+          <div class="card">
+            <h3>🧪 QA Engineer</h3>
+            <p>Own quality across API, web, mobile, and AI flows.</p>
+            <ul class="mini">
+              <li>Manual + automation</li>
+              <li>Cypress/Playwright, Postman</li>
+              <li>Clear bug reports, fast loops</li>
+            </ul>
+            <a href="https://wellfound.com/l/2BGFkL" target="_blank" class="btn small primary equal-btn">Apply now</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer lives INSIDE the final gradient block -->
+    <footer>
+      <img src="logo_main.png" alt="Kalmus Labs Logo" class="footer-logo" />
+      <p>© 2025 Kalmus Labs</p>
+      <a href="https://www.linkedin.com/company/kalmuslabs" target="_blank" class="linkedin">LinkedIn</a>
+    </footer>
+  </section>
+
+  <!-- Sequencing + Reveal -->
+  <script>
+    const seqEls = [...document.querySelectorAll('.seq')];
+    seqEls.forEach((el, i) => {
+      el.style.setProperty('--d', `${i * 110}ms`);
+      el.classList.add('seq-init');
+      requestAnimationFrame(() => el.classList.add('in'));
+    });
+
+    // оставляем observer на будущее, но он не критичен для видимости
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.18, rootMargin: '0px 0px -14% 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => {
+      el.classList.add('reveal-init');
+      io.observe(el);
+    });
+
+    const sky = document.querySelector('.sky');
+    addEventListener('scroll', () => {
+      const y = Math.min(170, window.scrollY * 0.12);
+      sky.style.transform = `translateY(${-y}px)`;
+    }, {passive:true});
+  </script>
+</body>
+</html>
