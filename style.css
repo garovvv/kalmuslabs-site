@@ -271,6 +271,21 @@ h1,h2,h3{
 }
 .card.in{opacity:1; transform:none}
 
+/* Small badge for counts (e.g., ×2) */
+.badge{
+  display:inline-block;
+  margin-left:8px;
+  padding:2px 8px;
+  font-size:.78rem;
+  font-weight:700;
+  color:#234;
+  background:#e9f0ff;
+  border:1px solid #d3e2ff;
+  border-radius:999px;
+  vertical-align:middle;
+}
+.card h3 .badge{ line-height:1; }
+
 /* Footer */
 footer{
   margin-top:48px;
